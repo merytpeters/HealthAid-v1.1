@@ -1,0 +1,75 @@
+:root {
+  /* Typography */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Rendering Enhancements */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Theme Color Scheme */
+  color-scheme: light dark;
+
+  --primary: #E6FFFA;     /* Teal Mist */
+  --secondary: #81E6D9;   /* Soft Mint */
+  --accent: #F56565;      /* Coral */
+  --background: #399b9d;  /* Teal Blue 
+  --text: #2D3748;        /* Dark Slate */
+  --alert: #E53E3E;       /* Alerts - Red */
+  --success: #38A169;     /* Success - Green */
+}
+
+
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+html, body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  overflow-y: scroll; /* Enable scrolling */
+  margin: 0;
+  background-color: var(--background); /* Now the deeper teal */
+  color: var(--text);
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  color: var(--secondary);
+}
+
+/* Light mode specific overrides */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: var(--text);
+    background-color: var(--background);
+  }
+  a:hover {
+    color: var(--secondary);
+  }
+}
+
+/* Dark mode styling */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #242424;
+    color: rgba(255, 255, 255, 0.87);
+  }
+
+  a:hover {
+    color: #9aaeff;
+  }
+}
+
