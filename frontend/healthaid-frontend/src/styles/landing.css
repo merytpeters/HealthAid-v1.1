@@ -1,0 +1,172 @@
+/* Landing Page Layout */
+.landing-container {
+  width: 85vw;
+  min-height: 85vh;
+  margin: 5rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  z-index: 999;
+}
+
+
+.hero {
+  width: 100%;
+  height: fit-content;
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.hero-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding-top: 5rem;
+}
+
+.hero-message {
+  flex: 1;
+  max-width: 50%;
+  padding: 1rem;
+}
+
+.hero-image {
+  flex: 1;
+  max-width: 50%;
+  margin-top: 7%;
+}
+
+.hero-image-wrapper {
+  position: relative;
+  width: 100%;
+  max-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 43%;
+  height: 30px;
+  background: linear-gradient(to bottom, transparent, #399b9d); /* match page bg */
+  z-index: 2;
+}
+
+.hero-image-wrapper img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+}
+
+/* Circles background */
+.circle-bg {
+  position: absolute;
+  z-index: 1;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #256c6e 20%,
+    #308b8d 30%,
+    #399b9d 70%,
+    #a6d6d7 100%
+  );
+  opacity: 0.7;
+  filter: blur(20px);
+}
+
+.content-section {
+  width: 100%;
+}
+
+.footer {
+    position: relative;
+    background-color: #15494a;
+}
+
+@keyframes logoFlyIn {
+  0% {
+    transform: translate(100vw, 100vh) scale(2);
+    opacity: 0;
+  }
+  60% {
+    transform: translate(1rem, 1rem) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes contentReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation to logo */
+.logo.animate {
+  animation: logoFlyIn 1.5s ease-out forwards;
+  z-index: 10;
+}
+
+/* Fade-in effect for the rest of the page */
+.page-content {
+  opacity: 0;
+  animation: contentReveal 1s ease-out 1.6s forwards;
+}
+
+@media (max-width: 950px) {
+  .landing-container {
+    width: 80vw;
+    min-height: 80vh;
+    margin: 3rem;
+  }
+  .circle-bg {
+    width: 400px;
+    height: 400px;
+  }
+
+  .hero-image-wrapper {
+    margin-top: 50%;
+    right: 15%;
+  }
+
+  .hero-image-wrapper::after {
+    width: 95%;
+  }
+}
+
+@media (max-width: 500px) {
+  .landing-container {
+    width: 70vw;
+    min-height: 80vh;
+    margin: 2rem;
+  }
+
+  .circle-bg {
+    width: 200px;
+    height: 200px;
+  }
+}
