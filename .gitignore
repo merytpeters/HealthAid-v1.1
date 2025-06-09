@@ -1,0 +1,80 @@
+# ======================================
+# OS-specific
+# ======================================
+.DS_Store
+Thumbs.db
+
+# ======================================
+# Python (Backend)
+# ======================================
+__pycache__/
+*.py[cod]
+*.log
+*.sqlite3
+*.db
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+healthaidvenv/
+
+# Pytest cache
+backend/.pytest_cache/
+backend/__pycache__/
+backend/*.log
+
+# virtual environment
+backend/healthaidvenv/
+
+# Env files
+backend/.env
+.env
+
+# MyPy and other cache
+.mypy_cache/
+.pytest_cache/
+.coverage
+.tox/
+htmlcov/
+
+# ======================================
+# Node (Frontend)
+# ======================================
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/.env
+
+# ======================================
+# Docker
+# ======================================
+*.pid
+*.seed
+*.tar
+*.log
+*.sock
+docker-compose.override.yml
+
+# ======================================
+# VSCode / IDE
+# ======================================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ======================================
+# Logs
+# ======================================
+logs/
+*.log
+
+# ======================================
+# Coverage reports
+# ======================================
+coverage/
+coverage.xml
+*.cover
+.hypothesis/
