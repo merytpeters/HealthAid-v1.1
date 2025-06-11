@@ -9,7 +9,13 @@ from backend.lib.utils.user import (
     is_strong_password,
     get_current_user
 )
-from backend.lib.errorlib.auth import WeakPasswordException, PasswordException
+from backend.lib.errorlib.auth import (
+    WeakPasswordException,
+    PasswordException,
+    UserNotAuthorizedException,
+    TokenException,
+    UserAlreadyExistsException
+)
 
 
 def register_user(
@@ -21,7 +27,11 @@ def register_user(
         user_data["email"] = email.strip().lower()
 
     if not is_strong_password(user_data["password"]):
-        raise WeakPasswordException("Password is not strong enough")
+        raise WeakPasswordException()
+    
+    existing_user = get_user_by_email(db, user_data["email"])
+    if existing_user:
+        raise UserAlreadyExistsException
 
     user = create_user(db, **user_data)
     token = create_access_token(data={"sub": user.email})
@@ -44,5 +54,19 @@ def login_user(
     token_type = "bearer"
     return user, token, token_type
 
-# def get_current_user_from_db():
-    """Profile Service"""
+
+def get_current_user_from_db(db: Session, user_data: dict) -> tuple[User, str]:
+    """Fetch the current user from the db using the provided user data."""
+    credentials_exception = TokenException("Invalid or expired token.")
+    user_exception = UserNotAuthorizedException()
+
+    token = user_data.get("token") if isinstance(user_data, dict) else None
+    if not isinstance(token, str) or not token:
+        raise credentials_exception
+    user = get_current_user(token, credentials_exception)
+    db_user = get_user_by_id(db, user["id"])
+
+    if not db_user:
+        raise user_exception
+
+    return db_user, str(db_user.email)

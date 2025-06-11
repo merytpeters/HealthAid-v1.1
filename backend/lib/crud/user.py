@@ -38,7 +38,7 @@ def get_user_by_id(db: Session, user_id: int) -> User:
     """Fetch a user by their ID."""
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
-        raise UserNotFoundException
+        raise UserNotFoundException()
     return user
 
 
@@ -54,7 +54,7 @@ def update_user(db: Session, user_id: int, **kwargs) -> User:
     """Update an existing user's details."""
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
-        raise UserNotFoundException
+        raise UserNotFoundException()
 
     # Handle password hashing separately
     if "password" in kwargs and kwargs["password"] is not None:
@@ -74,7 +74,7 @@ def delete_user(db: Session, user_id: int) -> dict:
     """Delete a user by their ID."""
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
-        raise UserNotFoundException
+        raise UserNotFoundException()
 
     db.delete(user)
     db.commit()
