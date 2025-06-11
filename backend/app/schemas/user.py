@@ -1,4 +1,5 @@
 """Schemas for user and organization management."""
+from typing import Literal
 from pydantic import BaseModel, EmailStr, Field
 from backend.lib.utils.enums import (
     UserType,
@@ -13,7 +14,7 @@ class UserCreate(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
     email: EmailStr
     password: str = Field(..., min_length=8)
-    full_name: str = Field(None, max_length=100)
+    full_name: str | None = Field(None, max_length=100)
 
 
 class UserOut(BaseModel):
@@ -37,6 +38,19 @@ class UserUpdate(BaseModel):
     currency: Currency | None = None
     assigned_staff_id: str | None = None
     assigned_patients: list[str] = []
+
+
+class UserLogin(BaseModel):
+    """Schema for user login."""
+    email: str
+    password: str = Field(..., min_length=8)
+
+
+class AuthenticatedUserOut(BaseModel):
+    """Schema for authenticated user"""
+    user: UserOut
+    access_token: str
+    token_type: Literal["bearer"]
 
 
 class OrganizationCreate(BaseModel):
