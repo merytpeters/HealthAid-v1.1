@@ -1,10 +1,11 @@
-# app/core/config.py
-
-from pydantic_settings import BaseSettings, SettingsConfigDict
+"""Core Configuration Settings"""
 from typing import ClassVar
 from pathlib import Path
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
 
 class Settings(BaseSettings):
+    """Settings Class"""
     DATABASE_URL: str
     SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
@@ -15,4 +16,5 @@ class Settings(BaseSettings):
         "env_file_encoding": "utf-8",
     }
 
-settings = Settings() # type: ignore
+
+settings = Settings()  # type: ignore

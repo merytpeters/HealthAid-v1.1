@@ -1,4 +1,4 @@
-# Main FastAPI entry point
+"""Main FastAPI Entry point"""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.api.routes.auth import router as auth_router
@@ -20,16 +20,19 @@ app.include_router(auth_router)
 
 @app.get("/")
 async def root():
+    """Root check"""
     return {"message": "Welcome to the Healthaid API!"}
 
 
 @app.get("/health")
 async def health_check():
+    """Health Check"""
     return {"status": "ok"}
 
 
 @app.get("/version")
 async def version():
+    """Version Check"""
     return {
         "version": "1.0.0", "description":
             "Healthaid application with user authentication"
