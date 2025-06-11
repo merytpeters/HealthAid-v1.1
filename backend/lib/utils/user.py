@@ -17,9 +17,9 @@ def create_access_token(
     """Create a JWT access token with an expiration time."""
     to_encode = data.copy()
     if expires_delta:
-        expire = datetime.utcnow() + expires_delta
+        expire = datetime.now() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(
+        expire = datetime.now() + timedelta(
             minutes=ACCESS_TOKEN_EXPIRE_MINUTES
         )
     to_encode.update({"exp": expire.timestamp()})
@@ -55,13 +55,20 @@ def token_refresh(token: str, credentials_exception: Exception) -> str:
     new_token = create_access_token(data={"sub": payload.get("sub")})
     return new_token
 
+
 def hash_password(password: str) -> str:
     """Hash a password using bcrypt."""
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    return bcrypt.hashpw(
+        password.encode('utf-8'), bcrypt.gensalt()
+    ).decode('utf-8')
+
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a plain password against a hashed password."""
-    return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
+    return bcrypt.checkpw(
+        plain_password.encode('utf-8'), hashed_password.encode('utf-8')
+    )
+
 
 def is_strong_password(password: str) -> bool:
     """Check if the password is strong enough."""

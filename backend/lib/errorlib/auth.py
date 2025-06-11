@@ -124,3 +124,11 @@ class DBSessionException(HTTPException):
         super().__init__(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=detail
         )
+
+
+class WeakPasswordException(HTTPException):
+    """Exception for weak password"""
+    def __init__(self, detail: str = "Password is too weak"):
+        super().__init__(
+            status_code=status.HTTP_400_BAD_REQUEST, detail=detail
+        )
