@@ -46,11 +46,13 @@ class UserNotAuthorizedException(HTTPException):
 class TokenException(HTTPException):
     """Exception raised for token-related errors."""
     def __init__(
-        self, detail: str = "Token error.",
-        status_code=status.HTTP_401_UNAUTHORIZED
+        self,
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"}
     ):
         super().__init__(
-            status_code=status_code, detail=detail
+            status_code=status_code, detail=detail, headers=headers
         )
 
 

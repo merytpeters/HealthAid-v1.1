@@ -42,12 +42,9 @@ def get_user_by_id(db: Session, user_id: int) -> User:
     return user
 
 
-def get_user_by_email(db: Session, email: str) -> User:
+def get_user_by_email(db: Session, email: str) -> User | None:
     """Fetch a user by their email."""
-    user = db.query(User).filter(User.email == email).first()
-    if not user:
-        raise UserNotFoundException(f"User with email {email} not found")
-    return user
+    return db.query(User).filter(User.email == email).first()
 
 
 def update_user(db: Session, user_id: int, **kwargs) -> User:
