@@ -1,5 +1,5 @@
 """Schemas for user and organization management."""
-from typing import Literal
+from typing import Literal, Optional
 from pydantic import BaseModel, EmailStr, Field
 from backend.lib.utils.enums import (
     UserType,
@@ -49,7 +49,8 @@ class UserLogin(BaseModel):
 class AuthenticatedUserOut(BaseModel):
     """Schema for authenticated user"""
     user: UserOut
-    access_token: str
+    access_token: Optional[str] = Field(default=None)
+    refresh_token: Optional[str] = Field(default=None)
     token_type: Literal["bearer"]
 
 
@@ -81,3 +82,20 @@ class OrgMemberOut(BaseModel):
     role: OrgRole = OrgRole.STAFF
 
     model_config = {"from_attributes": True}
+
+
+class LogoutResponse(BaseModel):
+    """Schema for all user type logout"""
+    message: str
+    token_invalidated: bool
+
+
+class TokenRefresh(BaseModel):
+    """Schema for refresh token"""
+    refresh_token: str
+    
+
+class TokenResponse(BaseModel):
+    """Token response Schema"""
+    access_token: str
+    token_type: Literal["bearer"]
