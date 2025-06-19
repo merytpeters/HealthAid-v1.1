@@ -1,0 +1,30 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.page-content {
+  flex: 1;
+  display: flex;
+  width: 100vw;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #eee;
+  padding: 1rem;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
