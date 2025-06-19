@@ -1,8 +1,8 @@
 /* Landing Page Layout */
 .landing-container {
   width: 85vw;
-  min-height: 85vh;
-  margin: 5rem;
+  min-height: fit-content;
+  margin: 2rem;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -10,6 +10,8 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   background-color: #fff;
   z-index: 999;
+  position: relative;
+  top: 2%;
 }
 
 
@@ -26,12 +28,15 @@
 }
 
 .hero-content {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 2rem;
   padding-top: 5rem;
+  width: 80vw;
+  margin: 0;
 }
 
 .hero-message {
@@ -44,6 +49,7 @@
   flex: 1;
   max-width: 50%;
   margin-top: 7%;
+  right: 0;
 }
 
 .hero-image-wrapper {
@@ -92,7 +98,7 @@
 }
 
 .content-section {
-  width: 100%;
+  position: relative;
 }
 
 .footer {
@@ -135,6 +141,8 @@
 .page-content {
   opacity: 0;
   animation: contentReveal 1s ease-out 1.6s forwards;
+  flex-direction: column;
+  max-width: 85vw;
 }
 
 @media (max-width: 950px) {
@@ -156,6 +164,10 @@
   .hero-image-wrapper::after {
     width: 95%;
   }
+
+  .content-section {
+    width: 80vw;
+  }
 }
 
 @media (max-width: 500px) {
@@ -168,5 +180,9 @@
   .circle-bg {
     width: 200px;
     height: 200px;
+  }
+
+  .content-section {
+    width: 70vw;
   }
 }

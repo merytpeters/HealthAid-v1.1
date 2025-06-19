@@ -58,3 +58,23 @@
   font-size: 0.95rem;
   font-weight: 400;
 }
+
+@media (max-width: 950px) {
+  .feature-content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 50vh;
+  }
+
+  .feature-content ul {
+    flex-direction: column;
+    min-width: 20%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .feature-content li {
+    font-weight: 300;
+    width: 70%;
+  }
+}

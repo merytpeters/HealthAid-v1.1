@@ -1,9 +1,10 @@
 .global-header {
   padding: 1rem 2rem;
-  right: 0;
+  right: 15vw;
+  margin-right: 0;
   position: absolute;
   top: 0;
-  width: fit-content;
+  width: 40%;
   background-color: #fff;
   z-index: 999;
   display: flex;
@@ -58,6 +59,36 @@
     background: transparent;
     flex-direction: column;
     width: 20vw;
+    padding: 1rem 2rem;
+    gap: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    display: none;
+  }
+
+  .nav-list.open {
+    display: flex;
+  }
+}
+
+/* For Pads */
+@media (max-width: 1050px) {
+  .global-header {
+    padding: 0;
+    right: 1.5rem;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-list {
+    position: absolute;
+    top: 40px;
+    right: 0.5rem;
+    background: transparent;
+    flex-direction: column;
+    width: 25vw;
     padding: 1rem 2rem;
     gap: 1rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);

@@ -20,12 +20,16 @@ function Landing() {
   return (
     <div className="landing-container">
       <div className="hero">
+        <section id="section1">
         <div className={`logo ${animate ? "animate" : ""}`}>
           <HealthaidLogo />
         </div>
+        </section>
 
         <div className={`page-content ${animate ? "show" : ""}`}>
           <GlobalHeader />
+
+          <section id="section2">
           <div className="hero-content">
             <div className="hero-message">
               <HeroMessage
@@ -47,16 +51,22 @@ function Landing() {
               </div>
             </div>
           </div>
+          </section>
+        
 
+          <section id="section3">
           <div className="content-section">
             <Content />
           </div>
+          </section>
         </div>
       </div>
 
+      <section id="section4">
       <div className="footer">
         <Footer />
       </div>
+      </section>
     </div>
   );
 }
