@@ -1,0 +1,59 @@
+.csidebar {
+  width: 220px;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease; /* smooth width transition */
+  overflow: hidden; /* hide content when collapsed */
+}
+
+.toggle-button {
+  margin-bottom: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 18px;
+}
+
+
+/* Collapsed sidebar style */
+.csidebar.closed {
+  width: 60px; /* smaller width when closed */
+  padding: 20px 10px; /* reduce horizontal padding */
+}
+
+.csidebar nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.csidebar nav ul li {
+  margin-bottom: 15px;
+}
+
+/* Hide link text when sidebar is closed */
+.csidebar.closed nav ul li a {
+  text-align: center;
+  font-size: 0; /* hides text */
+  padding: 8px 0;
+}
+
+.csidebar nav ul li a {
+  color: black;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+  display: block;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.csidebar nav ul li a:hover {
+  background-color: #173227;
+  color: #fff;
+}
+
