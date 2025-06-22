@@ -8,6 +8,14 @@ import { UserType, OrgRole } from "../context/userRoles";
 const Sidebar = () => {
     const { userType, orgRole } = useUser();
 
+    if (import.meta.env.DEV) {
+    // Hardcode the sidebar to test in dev mode:
+    // return <AdminSidebar />;
+    return <CommonUserSidebar />;
+    // return <StaffSidebar />;
+    // return <OrgSidebar />;
+  }
+
     if (userType === UserType.ADMIN) return <AdminSidebar />;
     if (userType === UserType.USER) return <CommonUserSidebar />;
     if (userType === UserType.ORGANIZATION) {

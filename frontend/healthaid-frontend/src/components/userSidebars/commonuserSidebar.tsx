@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import '../../styles/usersidebars/commonusersidebar.css';
+import '../../styles/usersidebars/allusersidebar.css';
 import { 
     FaTachometerAlt,
     FaBook,
@@ -19,7 +19,7 @@ function CommonUserSideBar () {
 
     const toggleSidebar = () => setIsOpen(!isOpen);
     return (
-        <div className={`csidebar ${isOpen ? "" : "closed"}`}>
+        <div className={`asidebar ${isOpen ? "" : "closed"}`}>
             <button
             className="toggle-button"
             onClick={toggleSidebar}
