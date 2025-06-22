@@ -1,8 +1,8 @@
 /* Landing Page Layout */
 .landing-container {
-  width: 85vw;
+  width: 90%;
   min-height: fit-content;
-  margin: 2rem;
+  margin: 2rem auto;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -12,6 +12,11 @@
   z-index: 999;
   position: relative;
   top: 2%;
+}
+
+.section2
+.section3 {
+  width: 90%;
 }
 
 
@@ -30,12 +35,13 @@
 .hero-content {
   position: relative;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
   gap: 2rem;
   padding-top: 5rem;
-  width: 80vw;
+  width: 100%;
   margin: 0;
 }
 
@@ -138,11 +144,11 @@
 }
 
 /* Fade-in effect for the rest of the page */
-.page-content {
+.landing-page-content {
   opacity: 0;
   animation: contentReveal 1s ease-out 1.6s forwards;
   flex-direction: column;
-  max-width: 85vw;
+  max-width: 100%;
 }
 
 @media (max-width: 950px) {

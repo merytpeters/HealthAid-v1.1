@@ -36,13 +36,9 @@ html, body {
   padding: 0;
   background-color: var(--background);
   color: var(--text);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
+  display: block;
   width: 100%;
   min-height: 100vh;
-  position: relative;
   box-sizing: border-box;
 }
 

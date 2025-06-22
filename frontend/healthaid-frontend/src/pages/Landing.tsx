@@ -26,7 +26,7 @@ function Landing() {
         </div>
         </section>
 
-        <div className={`page-content ${animate ? "show" : ""}`}>
+        <div className={`landing-page-content ${animate ? "show" : ""}`}>
           <GlobalHeader />
 
           <section id="section2">
