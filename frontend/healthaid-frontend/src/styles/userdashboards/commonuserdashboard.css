@@ -1,0 +1,14 @@
+.commonuserdashboard {
+  display: grid;
+  gap: 1rem;
+  padding: 0;
+  background-color: #709997;
+}
+
+.section1,
+.section2,
+.section3 {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
