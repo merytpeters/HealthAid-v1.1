@@ -27,7 +27,7 @@ function CommonUserSideBar () {
             >
                 {isOpen ? <FaTimes size={20} /> : <FaBars size={15} />}
             </button>
-            <nav>
+              <nav>
               <ul>
                 <li><Link to="/app/dashboard"><FaTachometerAlt /> Dashboard</Link></li>
                 <li><Link to="/app/journal"><FaBook /> Journal</Link></li>
@@ -38,7 +38,7 @@ function CommonUserSideBar () {
                 <li><Link to="/app/first-aid"><FaFirstAid /> First Aid</Link></li>
                 <li><Link to="/app/settings"><FaCog /> Settings</Link></li>
               </ul>
-           </nav>
+              </nav>
         </div>
     )
 }
