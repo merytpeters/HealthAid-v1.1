@@ -1,6 +1,6 @@
 function OrgDashboard () {
     return (
-        <div>
+        <div className="">
             Organization Dashboard
         </div>
     );

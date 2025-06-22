@@ -1,7 +1,7 @@
 function StaffDashboard () {
     return (
         <div>
-            Staff Dahboard
+            Staff Dashboard
         </div>
     );
 };

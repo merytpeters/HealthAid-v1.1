@@ -8,6 +8,14 @@ import CommonUserDashboard from "../components/userDashboards/commonuserdashboar
 const Dashboard = () => {
   const { userType, orgRole } = useUser();
 
+  if (import.meta.env.DEV) {
+    // Hardcode the dashboard to test in dev mode:
+    // return <AdminDashboard />;
+    return <CommonUserDashboard />;
+    // return <StaffDashboard />;
+    // return <OrgDashboard />;
+  }
+
     if (userType === UserType.ADMIN) return <AdminDashoard />;
     if (userType === UserType.USER) return <CommonUserDashboard/>;
     if (userType === UserType.ORGANIZATION) {
