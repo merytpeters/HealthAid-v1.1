@@ -5,8 +5,8 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-from app.models.base import Base
-from app.models.user import User, Organization, OrgMember  # Import your models here
+from backend.app.models.base import Base
+from backend.app.models.user import User, Organization, OrgMember, Admin  # Import your models here
 from dotenv import load_dotenv
 load_dotenv()
 # Import your models to ensure they are registered with SQLAlchemy

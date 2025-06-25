@@ -62,6 +62,13 @@ class Organization(Base):
     users = relationship("User", back_populates="organization")
 
     def __repr__(self):
+        """
+        Returns a string representation of the Organization
+        instance, including its id and name.
+        Returns:
+            str: A formatted string displaying the organization's 
+            id and name.
+        """
         return f"<Organization(id={self.id}, name={self.name})>"
 
 
@@ -77,7 +84,28 @@ class OrgMember(Base):
     organization = relationship("Organization")
 
     def __repr__(self):
+        """
+        Return a string representation of the OrgMember instance,
+        including its id, user_id, and organization_id.
+        """
         return (
             f"<OrgMember(id={self.id}, user_id={self.user_id}, "
             f"organization_id={self.organization_id})>"
         )
+
+
+class Admin(Base):
+    """Healthaid App Admin"""
+    __tablename__ ="admin"
+    
+    id = Column(String, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    role = Column(Enum(UserType), default=UserType.ADMIN, nullable=False)
+    is_admin = Column(String, default="true", nullable=False)
+
+    def __repr__(self):
+        """
+        Return a string representation of the Admin object,
+        including id, name, role, and is_admin status.
+        """
+        return f"<Admin(id={self.id}, name={self.name}, role={self.role}, is_admin={self.is_admin})>"
