@@ -1,10 +1,10 @@
 """Utility functions for handling JWT tokens."""
 import os
 from datetime import datetime, timedelta
-from jose import JWTError, jwt
+import uuid
 import bcrypt
 import redis
-import uuid
+from jose import JWTError, jwt
 from fastapi import Response
 
 
@@ -64,6 +64,7 @@ def blacklist_token(jti: str, expires_in_seconds: int):
     """Blacklist token"""
     redis_client.setex(jti, expires_in_seconds, "true")
 
+
 def is_token_blacklisted(jti: str) -> bool:
     """Check if token is blacklisted"""
     return redis_client.exists(jti) == 1
@@ -84,7 +85,7 @@ def verify_access_token(
         raise credentials_exception from exc
 
 
-def delete_auth_cookies(response:Response):
+def delete_auth_cookies(response: Response):
     """Delete Cookies Function For Logout"""
     response.delete_cookie("access_token")
     response.delete_cookie("reefresh_token")
