@@ -32,14 +32,13 @@ class User(Base):
     )
     currency = Column(Enum(Currency), default=Currency.USD)
 
-    assigned_staff_id = Column(Integer, ForeignKey("users.id"), nullable=True)
-    assigned_patients = relationship(
-        "User",
-        back_populates="assigned_staff",
-        remote_side=[id]
+    assigned_staff_id = Column(
+        Integer,
+        ForeignKey("org_members.id"),
+        nullable=True
     )
     assigned_staff = relationship(
-        "User",
+        "OrgMember",
         back_populates="assigned_patients",
         foreign_keys=[assigned_staff_id],
         uselist=False
@@ -49,7 +48,7 @@ class User(Base):
         """String representation of the User model."""
         return (
             f"<User(id={self.id}, username={self.username}, "
-            "email={self.email})>"
+            f"email={self.email})>"
         )
 
 
@@ -59,6 +58,8 @@ class Organization(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
+    email = Column(String, unique=True, index=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
     users = relationship("User", back_populates="organization")
 
     def __repr__(self):
@@ -66,7 +67,7 @@ class Organization(Base):
         Returns a string representation of the Organization
         instance, including its id and name.
         Returns:
-            str: A formatted string displaying the organization's 
+            str: A formatted string displaying the organization's
             id and name.
         """
         return f"<Organization(id={self.id}, name={self.name})>"
@@ -76,12 +77,20 @@ class OrgMember(Base):
     """Organization Member model representing a member of an organization."""
     __tablename__ = "org_members"
 
-    id = Column(String, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     organization_id = Column(Integer, ForeignKey("organizations.id"))
     role = Column(Enum(OrgRole), default=OrgRole.STAFF)
-    user = relationship("User")
+    user = relationship(
+        "User",
+        foreign_keys=[user_id]
+    )
     organization = relationship("Organization")
+    assigned_patients = relationship(
+        "User",
+        back_populates="assigned_staff",
+        foreign_keys=[User.assigned_staff_id]
+    )
 
     def __repr__(self):
         """
@@ -89,17 +98,19 @@ class OrgMember(Base):
         including its id, user_id, and organization_id.
         """
         return (
-            f"<OrgMember(id={self.id}, user_id={self.user_id}, "
-            f"organization_id={self.organization_id})>"
+            f"<OrgMember(id={self.id}, user={self.user}, "
+            f"organization={self.organization})>"
         )
 
 
 class Admin(Base):
     """Healthaid App Admin"""
-    __tablename__ ="admin"
-    
-    id = Column(String, primary_key=True, index=True)
+    __tablename__ = "admin"
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String, nullable=False)
+    email = Column(String, unique=True, index=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
     role = Column(Enum(UserType), default=UserType.ADMIN, nullable=False)
     is_admin = Column(String, default="true", nullable=False)
 
@@ -108,4 +119,7 @@ class Admin(Base):
         Return a string representation of the Admin object,
         including id, name, role, and is_admin status.
         """
-        return f"<Admin(id={self.id}, name={self.name}, role={self.role}, is_admin={self.is_admin})>"
+        return (
+            f"<Admin(id={self.id}, name={self.name},"
+            f"role={self.role}, is_admin={self.is_admin})>"
+        )
