@@ -1,9 +1,8 @@
 """Main FastAPI Entry point"""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.routes.user_auth import router as auth_router
 from backend.app.routes.user import routers as user_routers
-from backend.app.routes.token import router as token_router
+from backend.app.routes.auth import router as auth_router
 
 app = FastAPI()
 # CORS configuration
@@ -17,8 +16,7 @@ app.add_middleware(
 )
 
 # Include the API router
-app.include_router(token_router, prefix="/auth", tags=["token"])
-app.include_router(auth_router, prefix="/auth/user")
+app.include_router(auth_router, prefix="/auth", tags=["token"])
 for router in user_routers:
     app.include_router(router, prefix="/user")
 
