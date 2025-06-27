@@ -1,10 +1,11 @@
+"""User profile API"""
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from backend.app.schemas.user import (
     UserOut
 )
 from backend.lib.errorlib.auth import UserNotAuthorizedException
-from backend.app.services.user_service import (
+from backend.app.services.auth_service import (
     get_current_user_from_db as profile_service
 )
 from backend.app.dependencies.security import user_oauth2_scheme
@@ -24,4 +25,7 @@ def profile(
         user, _ = profile_service(token, db)
         return user
     except UserNotAuthorizedException as e:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(e))
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=str(e)
+        ) from e
