@@ -9,6 +9,9 @@ from backend.lib.utils.enums import (
     Currency,
     OrgRole
 )
+from backend.app.models.individual_users.user_dashboard import (
+    UserDashboard
+)
 
 
 class User(Base):
@@ -94,7 +97,7 @@ class OrgMember(Base):
     assigned_patients = relationship(
         "User",
         back_populates="assigned_staff",
-        foreign_keys=[User.assigned_staff_id]
+        foreign_keys="User.assigned_staff_id"
     )
 
     def __repr__(self):
