@@ -34,7 +34,7 @@ from backend.lib.errorlib.auth import (
     UserAlreadyExistsException,
     UserNotFoundException
 )
-from backend.app.schemas.user import UserOut, AuthenticatedUserOut
+from backend.app.schemas.user.user import UserOut, AuthenticatedUserOut
 from backend.app.schemas.org import OrgMemberOut, OrganizationOut
 from backend.app.schemas.admin import AdminOut
 

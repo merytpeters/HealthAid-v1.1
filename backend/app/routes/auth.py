@@ -14,7 +14,7 @@ from fastapi import (
     Depends
 )
 from sqlalchemy.orm import Session
-from backend.app.schemas.user import (
+from backend.app.schemas.user.user import (
     TokenResponse,
     TokenRefresh,
     LogoutResponse
@@ -26,7 +26,7 @@ from backend.lib.utils.user import (
     delete_auth_cookies
 )
 from backend.lib.utils.clienttype import ClientType
-from backend.app.schemas.user import (
+from backend.app.schemas.user.user import (
     AuthenticatedUserOut,
     UserLogin,
 )

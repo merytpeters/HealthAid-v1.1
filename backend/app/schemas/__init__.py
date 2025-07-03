@@ -3,7 +3,7 @@ from typing import Union, Annotated
 from pydantic import Field
 from .admin import AdminCreate
 from .org import OrganizationCreate
-from .user import UserCreate
+from .user.user import UserCreate
 
 RegisterSchema = Annotated[
     Union[UserCreate, OrganizationCreate, AdminCreate],

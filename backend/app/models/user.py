@@ -34,7 +34,11 @@ class User(Base):
 
     assigned_staff_id = Column(
         Integer,
-        ForeignKey("org_members.id"),
+        ForeignKey(
+            "org_members.id",
+            use_alter=True,
+            name="fk_user_assigned_staff_id"
+        ),
         nullable=True
     )
     assigned_staff = relationship(
@@ -43,6 +47,7 @@ class User(Base):
         foreign_keys=[assigned_staff_id],
         uselist=False
     )
+    dashboard = relationship("UserDashboard", uselist=False, back_populates="user")
 
     def __repr__(self):
         """String representation of the User model."""
