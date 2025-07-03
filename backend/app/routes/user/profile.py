@@ -1,7 +1,7 @@
 """User profile API"""
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from backend.app.schemas.user import (
+from backend.app.schemas.user.user import (
     UserOut
 )
 from backend.lib.errorlib.auth import UserNotAuthorizedException
