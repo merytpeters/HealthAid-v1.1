@@ -8,7 +8,7 @@ from backend.app.models.user import (
     Organization,
     Admin
 )
-from backend.lib.crud import (
+from backend.app.crud import (
     create_user,
     get_user_by_email,
     get_user_by_id,
