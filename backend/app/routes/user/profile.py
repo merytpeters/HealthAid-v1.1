@@ -2,7 +2,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from backend.app.schemas.user.user import (
-    UserOut
+    AuthenticatedUserOut
 )
 from backend.lib.errorlib.auth import UserNotAuthorizedException
 from backend.app.services.auth_service import (
@@ -15,7 +15,7 @@ from backend.app.db.session import get_db
 router = APIRouter()
 
 
-@router.get("/profile", response_model=UserOut)
+@router.get("/profile", response_model=AuthenticatedUserOut)
 def profile(
     db: Session = Depends(get_db),
     token: str = Depends(user_oauth2_scheme)
