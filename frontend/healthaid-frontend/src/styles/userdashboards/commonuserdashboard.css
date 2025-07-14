@@ -22,3 +22,15 @@
   color: #F0F0F0;
   margin-top: 15px;
 }
+
+@media (max-width: 767px) {
+  .commonuserdashboard {
+    min-height: auto;
+    gap: 2rem;
+    border-radius: 0;
+  }
+
+  .section1, .section2, .section3 {
+    margin-bottom: 1.5rem;
+  }
+}

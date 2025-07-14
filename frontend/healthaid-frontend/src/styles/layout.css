@@ -86,3 +86,15 @@ header {
 .hidden {
   display: none;
 }
+
+@media (max-width: 767px) {
+  .main-content {
+    height: 100vh;
+    width: 100%;
+  }
+
+  .layout-container.sidebar-open .main-content {
+    transform: translateX(30%);
+    transition: transform 0.3s ease;
+  }
+}
