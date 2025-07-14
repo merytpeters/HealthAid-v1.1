@@ -1,4 +1,4 @@
-function HealthaidLogo() {
+function HealthaidLogo({ textColor = "#2C7A7B" }) {
   return (
     <svg
       width="180"
@@ -18,7 +18,7 @@ function HealthaidLogo() {
       <text
         x="60"
         y="35"
-        fill="#2C7A7B"
+        fill={textColor}
         fontSize="24"
         fontWeight="600"
         fontFamily="Segoe UI, Tahoma, Geneva, Verdana, sans-serif"

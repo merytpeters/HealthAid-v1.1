@@ -1,21 +1,28 @@
 import { Outlet } from "react-router-dom";
-import { FaUserCircle } from "react-icons/fa";
+import { useState } from "react";
 import Sidebar from "./sidebar";
 import HealthaidLogo from "../assets/healthaidlogo";
 import '../styles/layout.css'
 
 const Layout = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
   return (
-    <div className="layout-container">
-      <header>
-        <HealthaidLogo />
-        <aside className="profilepic">
-          <FaUserCircle size={30}/>
-        </aside>
+    <div className={`layout-container ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+      <header className={sidebarOpen ? "" : "hidden"}>
+        <HealthaidLogo textColor="#FFFFFF"/>
       </header>
       <div className="page-content">
-        <Sidebar />
+        {sidebarOpen && <Sidebar onClose={() => setSidebarOpen(false)} />}
         <main className="main-content">
+          {!sidebarOpen && (
+            <button
+              className="open-sidebar-btn"
+              onClick={() => setSidebarOpen(true)}
+            >
+              ≡
+            </button>
+          )}
           <Outlet />
         </main>
       </div>

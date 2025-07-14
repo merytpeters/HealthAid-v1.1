@@ -1,26 +1,17 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import '../../styles/usersidebars/allusersidebar.css';
 import {
     FaTimes,
-    FaBars,
     FaTachometerAlt,
     FaUsers,
     FaFileAlt 
 } from "react-icons/fa";
 
-function OrgSideBar() {
-    const [isOpen, setIsOpen] = useState(true);
-
-    const toggleSidebar = () => setIsOpen(!isOpen);
+function OrgSideBar({ onClose }: { onClose: () => void }) {
     return (
-        <div className={`asidebar ${isOpen ? "" : "closed"}`}>
-            <button
-                className="toggle-button"
-                onClick={toggleSidebar}
-                aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
-            >
-            {isOpen ? <FaTimes size={20} /> : <FaBars size={15} />}
+        <div className="asidebar">
+            <button className="sidebar-close-btn" onClick={onClose}>
+                <FaTimes />
             </button>
             <nav>
                 <ul>
