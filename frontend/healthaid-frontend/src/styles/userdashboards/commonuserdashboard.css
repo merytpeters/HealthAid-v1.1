@@ -1,14 +1,24 @@
 .commonuserdashboard {
   display: grid;
-  gap: 1rem;
-  padding: 0;
-  background-color: #709997;
+  gap: 5rem;
+  padding: 2rem;
+  padding-top: 6rem;
+  background-color: white;
+  min-height: 100vh;
+  margin-right: 0;
+  border-radius: 8px;
 }
 
 .section1,
 .section2,
 .section3 {
   padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 1px solid black;
+  border-radius: 12px;
+}
+
+.profilepic {
+  cursor: pointer;
+  color: #F0F0F0;
+  margin-top: 15px;
 }
