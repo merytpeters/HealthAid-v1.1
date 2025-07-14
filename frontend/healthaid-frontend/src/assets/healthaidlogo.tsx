@@ -1,7 +1,7 @@
 function HealthaidLogo({ textColor = "#2C7A7B" }) {
   return (
     <svg
-      width="180"
+      width="200"
       height="50"
       viewBox="120 50"
       fill="none"
