@@ -48,6 +48,7 @@ header {
 
 .asidebar {
   transition: transform 0.3s ease;
+  height: fit-content;
 }
 
 .layout-container.sidebar-closed .asidebar {
