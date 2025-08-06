@@ -5,7 +5,7 @@ import HealthaidLogo from "../assets/healthaidlogo";
 import '../styles/layout.css'
 
 const Layout = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className={`layout-container ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>

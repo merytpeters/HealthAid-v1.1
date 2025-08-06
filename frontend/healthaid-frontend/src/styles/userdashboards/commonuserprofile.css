@@ -1,0 +1,89 @@
+.prof {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    left: 200px;
+    margin-top: 70px;
+    width: 80%;
+    gap: 20rem;
+    font-size: small;
+}
+
+.userInfo {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.emergency {
+    width: fit-content;
+}
+
+.profdata {
+    position: relative;
+    display: flex;
+    margin-top: 10px;
+    width: 100%;
+    font-size: small;
+}
+
+.bioinfo {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.row-one {
+    display: flex;
+    flex-direction: row;
+    gap: 25rem;
+}
+
+.row-two {
+    display: flex;
+    flex-direction: row;
+    gap: 25rem;
+}
+
+.healthdata {
+    position: relative;
+    display: flex;
+    margin-top: 10px;
+    width: 100%;
+    font-size: small;
+}
+
+.healthInfo {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 767px) {
+  .prof {
+    margin-top: 10px;
+    font-size: smaller;
+    left: 30%;
+    gap: 0.5rem;
+  }
+
+  .profdata {
+    margin-top: 0;
+  }
+
+  .bioinfo {
+    font-size: smaller;
+  }
+
+  .row-one {
+    gap: 5rem;
+  }
+
+  .row-two {
+    gap: 5rem;
+  }
+
+  .healthdata {
+    font-size: smaller;
+  }
+}

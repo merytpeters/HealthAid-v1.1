@@ -5,7 +5,6 @@
   padding-top: 6rem;
   background-color: white;
   min-height: 100vh;
-  margin-right: 0;
   border-radius: 8px;
 }
 
@@ -15,22 +14,52 @@
   padding: 1rem;
   border: 1px solid black;
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .profilepic {
   cursor: pointer;
   color: #F0F0F0;
-  margin-top: 15px;
+  margin-top: 50px;
+  width: 80px;
+  height: 80px;
+  padding: 0.5rem;
 }
 
 @media (max-width: 767px) {
   .commonuserdashboard {
     min-height: auto;
-    gap: 2rem;
+    gap: 1rem;
     border-radius: 0;
+    padding-top: 4rem;
+    padding: 0.5rem;
   }
 
-  .section1, .section2, .section3 {
+  .section1, .section3 {
     margin-bottom: 1.5rem;
+    height: 70px;
+    width: 340px;
+    max-width: 350px;
+    font-size: small;
+  }
+
+  .section2, .section3 {
+    margin-bottom: 1.5rem;
+    height: fit-content;
+    width: 340px;
+    max-width: 350px;
+    font-size: small;
+  }
+
+  .profilepic {
+    width: 50px;
+    height: 50px;
+    margin-top: 5px;
+  }
+
+  .prof {
+    margin-top: 10px;
   }
 }
