@@ -16,13 +16,13 @@ const Dashboard = () => {
     // return <OrgDashboard />;
   }
 
-    if (userType === UserType.ADMIN) return <AdminDashoard />;
-    if (userType === UserType.USER) return <CommonUserDashboard/>;
-    if (userType === UserType.ORGANIZATION) {
-        if (orgRole === OrgRole.ORG_ADMIN) {
-            return <OrgDashboard />;
-        }
-        return <StaffDashboard />;
+  if (userType === UserType.ADMIN) return <AdminDashoard />;
+  if (userType === UserType.USER) return <CommonUserDashboard/>;
+  if (userType === UserType.ORGANIZATION) {
+    if (orgRole === OrgRole.ORG_ADMIN) {
+      return <OrgDashboard />;
+      }
+      return <StaffDashboard />;
     }
     return <CommonUserDashboard />;
 };

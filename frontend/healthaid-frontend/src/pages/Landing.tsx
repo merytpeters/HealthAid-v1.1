@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import HealthaidLogo from "../assets/healthaidlogo";
 import '../styles/landing.css';
-import GlobalHeader from "../components/globalheader";
-import HeroMessage from "../components/heroMessage";
-import Content from "../components/contentSection";
-import Footer from "../components/footer";
+import GlobalHeader from "../components/landing/globalheader";
+import HeroMessage from "../components/landing/heroMessage";
+import Content from "../components/landing/contentSection";
+import Footer from "../components/landing/footer";
 
 function Landing() {
   const [animate, setAnimate] = useState(false);
