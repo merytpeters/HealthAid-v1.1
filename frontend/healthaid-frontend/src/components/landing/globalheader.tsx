@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import '../styles/globalheader.css';
+import '../../styles/globalheader.css';
 
 function GlobalHeader() {
   const [menuOpen, setMenuOpen] = useState(false);

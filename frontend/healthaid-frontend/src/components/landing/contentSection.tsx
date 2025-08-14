@@ -1,4 +1,4 @@
-import '../styles/content.css';
+import '../../styles/content.css';
 
 function Content() {
 const features = [
