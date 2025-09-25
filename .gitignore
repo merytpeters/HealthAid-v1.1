@@ -19,6 +19,7 @@ venv/
 env/
 ENV/
 healthaidvenv/
+healthaid_venv
 
 # Pytest cache
 backend/.pytest_cache/

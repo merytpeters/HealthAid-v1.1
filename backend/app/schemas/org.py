@@ -1,14 +1,13 @@
 """Schema for Organisation Management"""
+
 from typing import Literal
 from pydantic import BaseModel, EmailStr, Field
-from backend.lib.utils.enums import (
-    OrgRole,
-    UserType
-)
+from backend.lib.utils.enums import OrgRole, UserType
 
 
 class OrganizationCreate(BaseModel):
     """Schema for creating a new organization."""
+
     account_type: Literal["organization"]
     name: str = Field(..., min_length=3, max_length=100)
     email: EmailStr
@@ -17,6 +16,7 @@ class OrganizationCreate(BaseModel):
 
 class OrganizationOut(BaseModel):
     """Schema for outputting organization information."""
+
     id: int
     name: str
     email: str
@@ -27,11 +27,13 @@ class OrganizationOut(BaseModel):
 
 class OrganizationWithRoleOut(OrganizationOut):
     """Out Schema for OrgRoles"""
+
     org_role: OrgRole
 
 
 class OrgMemberCreate(BaseModel):
     """Schema for creating a new organization member."""
+
     user_id: int
     organization_id: int
     role: OrgRole = OrgRole.STAFF
@@ -39,6 +41,7 @@ class OrgMemberCreate(BaseModel):
 
 class OrgMemberOut(BaseModel):
     """Schema for outputting organization member information."""
+
     id: int
     user_id: int
     organization_id: int

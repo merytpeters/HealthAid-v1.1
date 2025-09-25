@@ -7,6 +7,7 @@ from backend.lib.utils.enums import UserType
 
 class AdminCreate(BaseModel):
     """Schema for creating an admin."""
+
     account_type: Literal["admin"]
     name: str = Field(..., min_length=2, max_length=100)
     email: EmailStr
@@ -17,6 +18,7 @@ class AdminCreate(BaseModel):
 
 class AdminOut(BaseModel):
     """Schema for outputting admin information."""
+
     id: int
     name: str
     email: str

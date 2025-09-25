@@ -1,4 +1,5 @@
 """Auth Tests"""
+
 import uuid
 import pytest
 from fastapi.testclient import TestClient
@@ -6,11 +7,15 @@ from backend.app.main import app
 
 client = TestClient(app)
 
-@pytest.mark.parametrize("account_type, extra", [
-    ("user", {}),
-    ("organization", {"name": "Test Org"}),
-    ("admin", {"name": "Test Admin"}),
-])
+
+@pytest.mark.parametrize(
+    "account_type, extra",
+    [
+        ("user", {}),
+        ("organization", {"name": "Test Org"}),
+        ("admin", {"name": "Test Admin"}),
+    ],
+)
 def test_register_login_logout(account_type, extra):
     """Test all user type sigu up, login and logout"""
     unique = uuid.uuid4().hex
@@ -21,7 +26,7 @@ def test_register_login_logout(account_type, extra):
         "account_type": account_type,
         "email": base_email,
         "password": password,
-        **extra
+        **extra,
     }
     if account_type == "user":
         payload["username"] = f"{account_type}_{unique}"
@@ -47,7 +52,7 @@ def test_register_login_logout(account_type, extra):
     login_payload = {
         "email": base_email,
         "password": password,
-        "login_context": login_context_value
+        "login_context": login_context_value,
     }
     login_response = client.post("/auth/login", json=login_payload)
     assert login_response.status_code == 200, f"Login failed: {login_response.text}"
@@ -71,7 +76,7 @@ def test_register_user_missing_email():
         "account_type": "user",
         "username": "missingemailuser",
         "password": "TestPassword1$",
-        "full_name": "Missing Email"
+        "full_name": "Missing Email",
     }
     response = client.post("/auth/register", json=payload)
     assert response.status_code == 422
@@ -86,7 +91,7 @@ def test_login_wrong_password():
         "username": f"wrongpass_{unique}",
         "email": email,
         "password": "CorrectPassword1$",
-        "full_name": "Wrong Password"
+        "full_name": "Wrong Password",
     }
     reg_response = client.post("/auth/register", json=payload)
     # 201 Created or 409 Conflict if duplicate
@@ -96,7 +101,7 @@ def test_login_wrong_password():
     login_payload = {
         "email": email,
         "password": "IncorrectPassword!",
-        "login_context": "user"
+        "login_context": "user",
     }
     login_response = client.post("/auth/login", json=login_payload)
     assert login_response.status_code == 401
@@ -107,7 +112,7 @@ def test_login_nonexistent_user():
     login_payload = {
         "email": "nonexistentuser@example.com",
         "password": "SomePassword1$",
-        "login_context": "user"
+        "login_context": "user",
     }
     login_response = client.post("/auth/login", json=login_payload)
     assert login_response.status_code == 401
@@ -121,7 +126,7 @@ def test_register_user_without_organization():
         "username": f"user_no_org_{unique}",
         "email": f"user_no_org_{unique}@example.com",
         "password": "TestPassword1$",
-        "full_name": "User No Org"
+        "full_name": "User No Org",
     }
     response = client.post("/auth/register", json=payload)
     assert response.status_code == 201, f"Registration failed: {response.text}"
@@ -138,7 +143,7 @@ def test_register_organization():
         "account_type": "organization",
         "name": f"Org_{unique}",
         "email": f"org_{unique}@example.com",
-        "password": "TestPassword1$"
+        "password": "TestPassword1$",
     }
     response = client.post("/auth/register", json=payload)
     assert response.status_code == 201, f"Registration failed: {response.text}"

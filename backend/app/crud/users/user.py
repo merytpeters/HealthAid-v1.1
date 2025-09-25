@@ -1,4 +1,5 @@
 """User CRUD Operations."""
+
 from sqlalchemy.orm import Session
 from backend.lib.utils.user import hash_password
 from backend.lib.errorlib.auth import (
@@ -16,9 +17,7 @@ def create_user(db: Session, **kwargs) -> User:
 
     existing_user = db.query(User).filter(User.email == email).first()
     if existing_user:
-        raise UserAlreadyExistsException(
-            f"User with email {email} already exists"
-        )
+        raise UserAlreadyExistsException(f"User with email {email} already exists")
 
     password = kwargs.pop("password", None)
     if not password:

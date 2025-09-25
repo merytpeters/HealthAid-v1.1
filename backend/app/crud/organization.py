@@ -1,4 +1,5 @@
 """Organization CRUD operations."""
+
 from sqlalchemy.orm import Session, joinedload
 from backend.app.models.user import User, OrgMember, Organization
 from backend.lib.utils.user import hash_password
@@ -14,8 +15,9 @@ def create_organization_with_email(db: Session, **kwargs) -> Organization:
     if not email:
         raise ValueError("Email is required")
 
-    existing_organization = db.query(Organization).filter(
-        Organization.email == email).first()
+    existing_organization = (
+        db.query(Organization).filter(Organization.email == email).first()
+    )
     if existing_organization:
         raise UserAlreadyExistsException(
             f"Organization with email {email} already exists"
@@ -36,8 +38,9 @@ def create_organization_with_email(db: Session, **kwargs) -> Organization:
 
 def get_organization_by_id(db: Session, organization_id=int) -> Organization:
     """Get organizations by id"""
-    organization = db.query(Organization).filter(
-        Organization.id == organization_id).first()
+    organization = (
+        db.query(Organization).filter(Organization.id == organization_id).first()
+    )
     if not organization:
         raise UserNotFoundException()
     return organization

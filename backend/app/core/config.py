@@ -1,4 +1,5 @@
 """Core Configuration Settings"""
+
 from typing import ClassVar
 from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -6,6 +7,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     """Settings Class"""
+
     DATABASE_URL: str
     SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int

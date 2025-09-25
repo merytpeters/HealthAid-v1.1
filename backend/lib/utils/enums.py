@@ -1,10 +1,12 @@
 """Enums for user types, organization roles,
 subscription tiers, and currencies."""
+
 from enum import Enum
 
 
 class UserType(str, Enum):
     """Enums for user types"""
+
     ADMIN = "admin"
     USER = "user"
     ORGANIZATION = "organization"
@@ -12,6 +14,7 @@ class UserType(str, Enum):
 
 class OrgRole(str, Enum):
     """Enums for organization roles"""
+
     ORG_ADMIN = "org_admin"
     DOCTOR = "doctor"
     NURSE = "nurse"
@@ -20,6 +23,7 @@ class OrgRole(str, Enum):
 
 class SubscriptionTier(str, Enum):
     """Enums for subscription tiers"""
+
     FREE = "free"
     BASIC = "basic"
     PREMIUM = "premium"
@@ -27,6 +31,7 @@ class SubscriptionTier(str, Enum):
 
 class Currency(str, Enum):
     """Enums for currencies"""
+
     USD = "USD"
     NGN = "NGN"
     EUR = "EUR"

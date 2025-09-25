@@ -1,29 +1,19 @@
 """
 Authorization and authentication APIs
 Token, Logout Route"""
+
 import os
 from typing import cast
 from datetime import datetime
 from jose import jwt, JWTError
-from fastapi import (
-    APIRouter,
-    HTTPException,
-    status,
-    Request,
-    Response,
-    Depends
-)
+from fastapi import APIRouter, HTTPException, status, Request, Response, Depends
 from sqlalchemy.orm import Session
-from backend.app.schemas.user.user import (
-    TokenResponse,
-    TokenRefresh,
-    LogoutResponse
-)
+from backend.app.schemas.user.user import TokenResponse, TokenRefresh, LogoutResponse
 from backend.lib.utils.user import (
     token_refresh,
     blacklist_token,
     verify_access_token,
-    delete_auth_cookies
+    delete_auth_cookies,
 )
 from backend.lib.utils.clienttype import ClientType
 from backend.app.schemas.user.user import (
@@ -33,14 +23,14 @@ from backend.app.schemas.user.user import (
 from backend.lib.errorlib.auth import (
     UserNotFoundException,
     PasswordException,
-    TokenException
+    TokenException,
 )
 from backend.app.services.auth_service import (
-    login_user_service_with_response as login_user_service
+    login_user_service_with_response as login_user_service,
 )
 from backend.app.db.session import get_db
 from backend.app.services.auth_service import (
-    register_user_service_with_response as register_user_service
+    register_user_service_with_response as register_user_service,
 )
 from backend.app.schemas import RegisterSchema
 
@@ -61,13 +51,13 @@ async def refresh_token(data: TokenRefresh):
 @router.post(
     "/register",
     response_model=AuthenticatedUserOut,
-    status_code=status.HTTP_201_CREATED
+    status_code=status.HTTP_201_CREATED,
 )
 async def register_user(
     payload: RegisterSchema,
     response: Response,
     request: Request,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
 ):
     """Register All user/usertypes"""
     client_type_raw = request.headers.get("X-Client-Type", "web")
@@ -76,17 +66,14 @@ async def register_user(
     account_type = user_data.pop("account_type", "user")
 
     result = register_user_service(
-        db,
-        user_data,
-        client_type_raw=client_type_raw,
-        account_type=account_type
+        db, user_data, client_type_raw=client_type_raw, account_type=account_type
     )
 
     auth_out = AuthenticatedUserOut(
         user=result["user"],
         access_token=None if result["set_cookies"] else result["access_token"],
         refresh_token=None if result["set_cookies"] else result["refresh_token"],
-        token_type=result["token_type"]
+        token_type=result["token_type"],
     )
 
     if result["set_cookies"]:
@@ -96,7 +83,7 @@ async def register_user(
             httponly=True,
             secure=True,
             samesite="lax",
-            max_age=15 * 60
+            max_age=15 * 60,
         )
         response.set_cookie(
             "refresh_token",
@@ -104,16 +91,14 @@ async def register_user(
             httponly=True,
             secure=True,
             samesite="lax",
-            max_age=7 * 24 * 60 * 60
+            max_age=7 * 24 * 60 * 60,
         )
 
     return auth_out
 
 
 @router.post(
-    "/login",
-    response_model=AuthenticatedUserOut,
-    status_code=status.HTTP_200_OK
+    "/login", response_model=AuthenticatedUserOut, status_code=status.HTTP_200_OK
 )
 async def login(
     user_login: UserLogin,
@@ -134,7 +119,7 @@ async def login(
             email=user_login.email,
             password=user_login.password,
             client_type_raw=client_type,
-            login_context=login_context
+            login_context=login_context,
         )
 
         if result["set_cookies"]:
@@ -144,7 +129,7 @@ async def login(
                 httponly=True,
                 secure=True,
                 samesite="lax",
-                max_age=15 * 60
+                max_age=15 * 60,
             )
             response.set_cookie(
                 "refresh_token",
@@ -152,7 +137,7 @@ async def login(
                 httponly=True,
                 secure=True,
                 samesite="lax",
-                max_age=7 * 24 * 60 * 60
+                max_age=7 * 24 * 60 * 60,
             )
 
             # Return without tokens in JSON since they are in cookies
@@ -160,7 +145,7 @@ async def login(
                 "user": result["user"],
                 "access_token": None,
                 "refresh_token": None,
-                "token_type": result["token_type"]
+                "token_type": result["token_type"],
             }
 
         # Return full response with tokens in JSON
@@ -171,27 +156,14 @@ async def login(
             "token_type": result["token_type"],
         }
     except UserNotFoundException as exc:
-        raise HTTPException(
-            status_code=401,
-            detail="User not found"
-        ) from exc
+        raise HTTPException(status_code=401, detail="User not found") from exc
     except PasswordException as exc:
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid credentials"
-        ) from exc
+        raise HTTPException(status_code=401, detail="Invalid credentials") from exc
     except Exception as e:
-        raise HTTPException(
-            status_code=500,
-            detail=str(e)
-        ) from e
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
-@router.post(
-    "/logout",
-    response_model=LogoutResponse,
-    status_code=status.HTTP_200_OK
-)
+@router.post("/logout", response_model=LogoutResponse, status_code=status.HTTP_200_OK)
 async def logout(request: Request, response: Response):
     """Logout"""
     access_token = request.cookies.get("access_token")
@@ -222,11 +194,7 @@ async def logout(request: Request, response: Response):
     # Blacklist refresh token
     if refresh_token:
         try:
-            payload = jwt.decode(
-                refresh_token,
-                SECRET_KEY,
-                algorithms=[ALGORITHM]
-            )
+            payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[ALGORITHM])
             jti = payload.get("jti")
             exp = payload.get("exp")
             if jti and exp:
@@ -240,6 +208,5 @@ async def logout(request: Request, response: Response):
     delete_auth_cookies(response)
 
     return LogoutResponse(
-        message="Logout successful!",
-        token_invalidated=token_invalidated
+        message="Logout successful!", token_invalidated=token_invalidated
     )

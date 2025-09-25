@@ -1,13 +1,8 @@
 """User Service: Handles business logic"""
+
 from typing import Literal, Union
 from sqlalchemy.orm import Session
-from backend.app.models.user import (
-    User,
-    OrgMember,
-    UserType,
-    Organization,
-    Admin
-)
+from backend.app.models.user import User, OrgMember, UserType, Organization, Admin
 from backend.app.crud import (
     create_user,
     get_user_by_email,
@@ -16,14 +11,14 @@ from backend.app.crud import (
     get_organization_by_email,
     create_organization_with_email,
     create_admin,
-    get_admin_by_email
+    get_admin_by_email,
 )
 from backend.lib.utils.user import (
     create_access_token,
     verify_password,
     is_strong_password,
     get_current_user,
-    create_refresh_token
+    create_refresh_token,
 )
 from backend.lib.utils.clienttype import ClientType, validate_client_type
 from backend.lib.errorlib.auth import (
@@ -32,7 +27,7 @@ from backend.lib.errorlib.auth import (
     UserNotAuthorizedException,
     TokenException,
     UserAlreadyExistsException,
-    UserNotFoundException
+    UserNotFoundException,
 )
 from backend.app.schemas.user.user import UserOut, AuthenticatedUserOut
 from backend.app.schemas.org import OrgMemberOut, OrganizationOut
@@ -43,7 +38,7 @@ MODEL_TO_SCHEMA = {
     "User": UserOut,
     "OrgMember": OrgMemberOut,
     "Admin": AdminOut,
-    "Organization": OrganizationOut
+    "Organization": OrganizationOut,
 }
 
 
@@ -57,9 +52,7 @@ def to_schema(user_obj):
 
 
 def register_account(
-    db: Session,
-    user_data: dict,
-    account_type: Literal["user", "organization", "admin"]
+    db: Session, user_data: dict, account_type: Literal["user", "organization", "admin"]
 ) -> AuthenticatedUserOut:
     """Register a User, Organization, or Admin account"""
 
@@ -80,9 +73,7 @@ def register_account(
         or get_organization_by_email(db, email)
         or get_admin_by_email(db, email)
     ):
-        raise UserAlreadyExistsException(
-            "An account with this email already exists"
-        )
+        raise UserAlreadyExistsException("An account with this email already exists")
 
     if account_type == "organization":
         account = create_organization_with_email(db, **user_data)
@@ -106,7 +97,7 @@ def register_account(
         user=schema_account,
         access_token=access_token,
         refresh_token=refresh_token,
-        token_type="bearer"
+        token_type="bearer",
     )
 
 
@@ -114,7 +105,7 @@ def register_user_service_with_response(
     db: Session,
     user_data: dict,
     client_type_raw: str,
-    account_type: Literal["user", "organization", "admin"] = "user"
+    account_type: Literal["user", "organization", "admin"] = "user",
 ):
     """Sign up service for all user type"""
     client_type: ClientType = validate_client_type(client_type_raw)
@@ -141,17 +132,13 @@ def register_user_service_with_response(
 def check_auth(
     user_obj: Union[User, OrgMember, Organization, Admin, None],
     password: str,
-    context: str
+    context: str,
 ):
     """Shared authentication user login across user types"""
     if not user_obj:
         raise UserNotFoundException(f"{context.capitalize()} not found")
-    if not isinstance(
-        user_obj.hashed_password,
-        str
-    ) or not verify_password(
-        password,
-        user_obj.hashed_password
+    if not isinstance(user_obj.hashed_password, str) or not verify_password(
+        password, user_obj.hashed_password
     ):
         raise PasswordException(f"Invalid password for {context}")
 
@@ -160,7 +147,7 @@ def authenticate_by_context(
     db: Session,
     email: str,
     password: str,
-    login_context: Literal["user", "organization", "admin"] = "user"
+    login_context: Literal["user", "organization", "admin"] = "user",
 ) -> tuple[Union[User, OrgMember, Organization, Admin], UserType, str, str]:
     """Authenticate User type"""
 
@@ -171,24 +158,15 @@ def authenticate_by_context(
         if org_member:
             check_auth(org_member, password, context="organization")
             if org_member.role is None:
-                raise UserNotFoundException(
-                    "Organization member role not found"
-                )
-            return (
-                org_member,
-                UserType.ORGANIZATION,
-                str(org_member.role),
-                "bearer"
-            )
+                raise UserNotFoundException("Organization member role not found")
+            return (org_member, UserType.ORGANIZATION, str(org_member.role), "bearer")
 
         org = get_organization_by_email(db, normalized_email)
         if org:
             check_auth(org, password, context="organization")
             return org, UserType.ORGANIZATION, "org_admin", "bearer"
 
-        raise UserNotFoundException(
-            "No OrgMember or Organization with this email"
-        )
+        raise UserNotFoundException("No OrgMember or Organization with this email")
 
     if login_context == "admin":
         admin = get_admin_by_email(db, normalized_email)
@@ -211,7 +189,7 @@ def login_user_service_with_response(
     email: str,
     password: str,
     client_type_raw: str,
-    login_context: Literal["user", "organization", "admin"] = "user"
+    login_context: Literal["user", "organization", "admin"] = "user",
 ):
     """Login service for all user type"""
     client_type: ClientType = validate_client_type(client_type_raw)
