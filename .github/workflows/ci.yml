@@ -58,6 +58,7 @@ jobs:
           psql $DATABASE_URL -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
 
       - name: Run migrations
+        working-directory: backend
         run: alembic upgrade head
 
       - name: Check formatting with black
