@@ -56,7 +56,6 @@ jobs:
       - name: Reset DB schema
         run: |
           psql $DATABASE_URL -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
-          psql $DATABASE_URL -c "CREATE SCHEMA public;"
 
       - name: Run migrations
         run: alembic -c backend/alembic.ini upgrade head
