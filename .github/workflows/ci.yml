@@ -59,7 +59,9 @@ jobs:
 
       - name: Run migrations
         working-directory: backend
-        run: alembic -x dburl=$DATABASE_URL upgrade head
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: alembic upgrade head
 
       - name: Check formatting with black
         run: black --check backend/
