@@ -8,7 +8,12 @@ from datetime import datetime
 from jose import jwt, JWTError
 from fastapi import APIRouter, HTTPException, status, Request, Response, Depends
 from sqlalchemy.orm import Session
-from backend.app.schemas.user.user import TokenResponse, TokenRefresh, LogoutResponse
+from backend.app.schemas.auth import (
+    TokenResponse,
+    TokenRefresh,
+    LogoutResponse,
+    AuthenticatedUserOut,
+)
 from backend.lib.utils.user import (
     token_refresh,
     blacklist_token,
@@ -16,10 +21,7 @@ from backend.lib.utils.user import (
     delete_auth_cookies,
 )
 from backend.lib.utils.clienttype import ClientType
-from backend.app.schemas.user.user import (
-    AuthenticatedUserOut,
-    UserLogin,
-)
+from backend.app.schemas.user.user import UserLogin
 from backend.lib.errorlib.auth import (
     UserNotFoundException,
     PasswordException,

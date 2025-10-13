@@ -53,27 +53,22 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r backend/requirements.txt
 
-      - name: Reset DB schema
-        run: |
-          psql $DATABASE_URL -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
-
-      - name: Run migrations
+      - name: Run migrations (fresh database)
         working-directory: backend
         env:
           PYTHONPATH: ${{ github.workspace }}
-        run: alembic upgrade head
-
-      - name: Fix missing admin sequence (CI only)
         run: |
-          psql $DATABASE_URL <<'SQL'
-          DO $$
-          BEGIN
-            IF NOT EXISTS (SELECT 1 FROM pg_class WHERE relname = 'admin_id_seq') THEN
-              CREATE SEQUENCE admin_id_seq START WITH 1;
-              ALTER TABLE admin ALTER COLUMN id SET DEFAULT nextval('admin_id_seq');
-            END IF;
-          END$$;
-          SQL
+          # Test clean migration from scratch
+          alembic upgrade head
+
+      - name: Test migration rollback (optional)
+        working-directory: backend
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: |
+          # Test that we can rollback one step and reapply
+          alembic downgrade -1
+          alembic upgrade head
 
       - name: Check formatting with black
         run: black --check backend/

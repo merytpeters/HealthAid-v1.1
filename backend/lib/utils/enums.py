@@ -10,6 +10,7 @@ class UserType(str, Enum):
     ADMIN = "admin"
     USER = "user"
     ORGANIZATION = "organization"
+    ORG_MEMBER = "org_member"
 
 
 class OrgRole(str, Enum):

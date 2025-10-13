@@ -1,0 +1,68 @@
+THIS DOC IS TO SHOW REASONS FOR DECISIONS TAKEN FOR ORGANIZATION ARCHITECTURE
+
+=== ORGANIZATION MODEL DECISIONS ===
+
+1. NO UNIQUE ADMIN CONSTRAINT
+   - Reason: Scaling purposes - an organization can have more than one admin depending on departments
+   - Implementation: Multiple OrgMembers can have ORG_ADMIN role within same organization
+
+2. ORGANIZATION AS SEPARATE ENTITY
+   - Decision: Organizations are separate accounts with their own login credentials
+   - Reason: Organizations need independent authentication and management capabilities
+   - Default Role: ORG_ADMIN (organizations are admins of themselves by default)
+
+3. TWO TYPES OF ADMIN ROLES
+   - App Admin (UserType.ADMIN): System-level administrator with global permissions
+   - Org Admin (OrgRole.ORG_ADMIN): Organization-level administrator with org-specific permissions
+   - Reason: Clear separation of concerns between system administration and organization management
+
+=== ORG MEMBER MODEL DECISIONS ===
+
+4. NULLABLE USER_ID IN ORGMEMBER
+   - Decision: user_id field is nullable in OrgMember model
+   - Reason: Allows org members to exist independently without requiring a separate User account
+   - Use Cases: Staff who work for organization but aren't patients
+
+5. INDEPENDENT ORG MEMBER AUTHENTICATION
+   - Decision: OrgMembers have their own email, username, password fields
+   - Reason: Enables independent login even when not linked to User account
+   - Updated: Removed unique constraint on (user_id, organization_id) to enable multi-org membership
+
+6. MULTI-ORGANIZATION MEMBERSHIP
+   - Updated Implementation: Same org member can belong to multiple organizations
+   - Approach: Multiple OrgMember records with same email/user_id but different organization_id
+   - Benefits: True many-to-many relationship, same login credentials work across organizations
+   - New Fields: is_active, joined_at for membership tracking
+
+=== ROLE HIERARCHY ===
+
+7. ORG ROLE STRUCTURE
+   - STAFF: Basic organization member
+   - DOCTOR: Medical professional role
+   - NURSE: Nursing professional role  
+   - ORG_ADMIN: Administrator within the organization
+   - Default: STAFF (when creating new org members)
+
+=== EMAIL UNIQUENESS CONSTRAINTS ===
+
+8. CROSS-ENTITY EMAIL UNIQUENESS
+   - Decision: Same email cannot be used across User, Organization, Admin, or OrgMember (when independent)
+   - Exception: Existing User can be added as OrgMember using same email (links via user_id)
+   - Reason: Prevents authentication confusion and ensures unique identity per email
+
+=== AUTHENTICATION CONTEXTS ===
+
+9. LOGIN CONTEXT SEPARATION
+   - user: For regular User accounts
+   - organization: For Organization accounts  
+   - admin: For App Admin accounts
+   - org_member: For OrgMember accounts
+   - Reason: Ensures users login with correct context and permissions
+
+=== FUTURE CONSIDERATIONS ===
+
+10. ORGANIZATION CONTEXT SWITCHING
+    - Implementation: Users can switch between organizations during session
+    - UI/UX: Organization selector for multi-org members
+    - Permissions: Role-based access per organization
+    - Session Management: Track current organization context

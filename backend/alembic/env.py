@@ -1,4 +1,11 @@
+import sys
 import os
+from pathlib import Path
+
+# the project root to Python path
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
