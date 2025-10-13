@@ -1,7 +1,7 @@
 """merge heads
 
 Revision ID: 45c66d1ec419
-Revises: add_org_member_columns, dd553a934d07
+Revises: dd553a934d07
 Create Date: 2025-10-13 22:18:01.731486
 
 """
@@ -14,7 +14,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision: str = "45c66d1ec419"
-down_revision: Union[str, None] = ("add_org_member_columns", "dd553a934d07")
+down_revision: Union[str, None] = "dd553a934d07"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
