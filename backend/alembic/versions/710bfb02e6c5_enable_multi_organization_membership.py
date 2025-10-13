@@ -83,7 +83,9 @@ def downgrade() -> None:
         ["id"],
         ondelete="SET NULL",
     )
-    op.drop_constraint("user_dashboards_user_id_fkey", "user_dashboards", type_="foreignkey")
+    op.drop_constraint(
+        "user_dashboards_user_id_fkey", "user_dashboards", type_="foreignkey"
+    )
     op.create_foreign_key(
         op.f("user_dashboards_user_id_fkey"),
         "user_dashboards",
@@ -106,7 +108,9 @@ def downgrade() -> None:
         existing_type=postgresql.ENUM("ADMIN", "USER", "ORGANIZATION", name="usertype"),
         nullable=False,
     )
-    op.drop_constraint("org_members_organization_id_fkey", "org_members", type_="foreignkey")
+    op.drop_constraint(
+        "org_members_organization_id_fkey", "org_members", type_="foreignkey"
+    )
     op.drop_constraint("org_members_user_id_fkey", "org_members", type_="foreignkey")
     op.create_foreign_key(
         op.f("org_members_organization_id_fkey"),
