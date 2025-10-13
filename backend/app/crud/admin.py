@@ -1,4 +1,5 @@
 """Admin Crud operations for the application."""
+
 from sqlalchemy.orm import Session
 from backend.app.models.user import Admin
 from backend.lib.utils.user import hash_password

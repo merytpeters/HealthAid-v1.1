@@ -1,4 +1,5 @@
 """Utility functions for handling JWT tokens."""
+
 import os
 from datetime import datetime, timedelta
 import uuid
@@ -10,52 +11,35 @@ from fastapi import Response
 
 SECRET_KEY = os.getenv("SECRET_KEY", "default_secret_key")
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv(
-    "ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
-REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv(
-    "REFRESH_TOKEN_EXPIRE_DAYS", "7"
-))
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
+REFRESH_TOKEN_EXPIRE_DAYS = int(os.getenv("REFRESH_TOKEN_EXPIRE_DAYS", "7"))
 
 
-redis_client = redis.Redis(host='localhost', port=6379, db=0)
+redis_client = redis.Redis(host="localhost", port=6379, db=0)
 
 
-def create_access_token(
-    data: dict, expires_delta: timedelta | None = None
-) -> str:
+def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:
     """Create a JWT access token with an expiration time."""
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.now() + expires_delta
     else:
-        expire = datetime.now() + timedelta(
-            minutes=ACCESS_TOKEN_EXPIRE_MINUTES
-        )
+        expire = datetime.now() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     jti = str(uuid.uuid4())
-    to_encode.update({
-        "exp": expire.timestamp(),
-        "jti": jti
-        })
+    to_encode.update({"exp": expire.timestamp(), "jti": jti})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
 
-def create_refresh_token(
-    data: dict, expires_delta: timedelta | None = None
-) -> str:
+def create_refresh_token(data: dict, expires_delta: timedelta | None = None) -> str:
     """Create a jwt refresh token with an expiration"""
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.now() + expires_delta
     else:
-        expire = datetime.now() + timedelta(
-            days=REFRESH_TOKEN_EXPIRE_DAYS
-        )
+        expire = datetime.now() + timedelta(days=REFRESH_TOKEN_EXPIRE_DAYS)
     jti = str(uuid.uuid4())
-    to_encode.update({
-        "exp": expire.timestamp(),
-        "jti": jti
-        })
+    to_encode.update({"exp": expire.timestamp(), "jti": jti})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
@@ -70,9 +54,7 @@ def is_token_blacklisted(jti: str) -> bool:
     return redis_client.exists(jti) == 1
 
 
-def verify_access_token(
-    token: str, credentials_exception: Exception
-) -> dict:
+def verify_access_token(token: str, credentials_exception: Exception) -> dict:
     """Verify the JWT access token, reject it if
     blacklisted and return the payload."""
     try:
@@ -122,15 +104,13 @@ def token_refresh(refresh_token: str, credentials_exception: Exception) -> str:
 
 def hash_password(password: str) -> str:
     """Hash a password using bcrypt."""
-    return bcrypt.hashpw(
-        password.encode('utf-8'), bcrypt.gensalt()
-    ).decode('utf-8')
+    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a plain password against a hashed password."""
     return bcrypt.checkpw(
-        plain_password.encode('utf-8'), hashed_password.encode('utf-8')
+        plain_password.encode("utf-8"), hashed_password.encode("utf-8")
     )
 
 

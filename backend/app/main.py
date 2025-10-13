@@ -1,4 +1,5 @@
 """Main FastAPI Entry point"""
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.routes.user import routers as user_routers
@@ -37,6 +38,6 @@ async def health_check():
 async def version():
     """Version Check"""
     return {
-        "version": "1.0.0", "description":
-            "Healthaid application with user authentication"
+        "version": "1.0.0",
+        "description": "Healthaid application with user authentication",
     }

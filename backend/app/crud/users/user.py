@@ -1,4 +1,5 @@
 """User CRUD Operations."""
+
 from sqlalchemy.orm import Session
 from backend.lib.utils.user import hash_password
 from backend.lib.errorlib.auth import (
@@ -16,9 +17,7 @@ def create_user(db: Session, **kwargs) -> User:
 
     existing_user = db.query(User).filter(User.email == email).first()
     if existing_user:
-        raise UserAlreadyExistsException(
-            f"User with email {email} already exists"
-        )
+        raise UserAlreadyExistsException(f"User with email {email} already exists")
 
     password = kwargs.pop("password", None)
     if not password:
@@ -31,15 +30,10 @@ def create_user(db: Session, **kwargs) -> User:
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+
+    if new_user.id is None:
+        raise ValueError("Failed to create user - ID not assigned")
     return new_user
-
-
-def get_user_by_id(db: Session, user_id: int) -> User:
-    """Fetch a user by their ID."""
-    user = db.query(User).filter(User.id == user_id).first()
-    if not user:
-        raise UserNotFoundException()
-    return user
 
 
 def get_user_by_email(db: Session, email: str) -> User | None:
@@ -47,7 +41,7 @@ def get_user_by_email(db: Session, email: str) -> User | None:
     return db.query(User).filter(User.email == email).first()
 
 
-def update_user(db: Session, user_id: int, **kwargs) -> User:
+def update_user(db: Session, user_id: str, **kwargs) -> User:
     """Update an existing user's details."""
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
@@ -67,7 +61,7 @@ def update_user(db: Session, user_id: int, **kwargs) -> User:
     return user
 
 
-def delete_user(db: Session, user_id: int) -> dict:
+def delete_user(db: Session, user_id: str) -> dict:
     """Delete a user by their ID."""
     user = db.query(User).filter(User.id == user_id).first()
     if not user:

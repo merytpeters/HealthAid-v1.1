@@ -1,4 +1,5 @@
 """Organization CRUD operations."""
+
 from sqlalchemy.orm import Session, joinedload
 from backend.app.models.user import User, OrgMember, Organization
 from backend.lib.utils.user import hash_password
@@ -14,8 +15,9 @@ def create_organization_with_email(db: Session, **kwargs) -> Organization:
     if not email:
         raise ValueError("Email is required")
 
-    existing_organization = db.query(Organization).filter(
-        Organization.email == email).first()
+    existing_organization = (
+        db.query(Organization).filter(Organization.email == email).first()
+    )
     if existing_organization:
         raise UserAlreadyExistsException(
             f"Organization with email {email} already exists"
@@ -34,10 +36,11 @@ def create_organization_with_email(db: Session, **kwargs) -> Organization:
     return new_org
 
 
-def get_organization_by_id(db: Session, organization_id=int) -> Organization:
+def get_organization_by_id(db: Session, organization_id=str) -> Organization:
     """Get organizations by id"""
-    organization = db.query(Organization).filter(
-        Organization.id == organization_id).first()
+    organization = (
+        db.query(Organization).filter(Organization.id == organization_id).first()
+    )
     if not organization:
         raise UserNotFoundException()
     return organization
@@ -48,6 +51,18 @@ def get_organization_by_email(db: Session, email: str) -> Organization:
     return db.query(Organization).filter(Organization.email == email).first()
 
 
+def add_admin():
+    pass
+
+
+def promote_to_admin():
+    pass
+
+
+def remove_admin():
+    pass
+
+
 def update_organization():
     pass
 
@@ -56,17 +71,15 @@ def org_admin_required():
     pass
 
 
-def get_org_member_by_email(db: Session, email: str) -> OrgMember | None:
-    """Fetch OrgMember by joining with User and filtering by user email."""
+def get_organization_staff(db: Session, organization_id: str):
+    """Get all staff in an organization"""
     return (
         db.query(OrgMember)
-        .join(User, OrgMember.user_id == User.id)
-        .filter(User.email == email)
         .options(joinedload(OrgMember.user))
-        .first()
+        .filter(OrgMember.organization_id == organization_id)
+        .all()
     )
 
 
 def delete_organization():
-
     pass

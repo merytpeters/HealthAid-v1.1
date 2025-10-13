@@ -1,4 +1,5 @@
 """Test For Config Settings"""
+
 import pytest
 from backend.app.core.config import settings
 

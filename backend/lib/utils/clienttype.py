@@ -1,4 +1,5 @@
 """Device client type"""
+
 from typing import Literal
 
 
