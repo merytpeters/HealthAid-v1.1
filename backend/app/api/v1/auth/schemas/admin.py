@@ -2,7 +2,7 @@
 
 from typing import Literal
 from pydantic import BaseModel, Field, EmailStr
-from backend.lib.utils.enums import UserType
+from lib.utils.enums import UserType
 
 
 class AdminCreate(BaseModel):

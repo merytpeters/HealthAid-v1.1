@@ -1,9 +1,9 @@
 """Organization CRUD operations."""
 
 from sqlalchemy.orm import Session, joinedload
-from backend.app.api.v1.auth.models.user import OrgMember, Organization
-from backend.lib.utils.user import hash_password
-from backend.lib.errorlib.auth import (
+from app.api.v1.auth.models.user import OrgMember, Organization
+from lib.utils.user import hash_password
+from lib.errorlib.auth import (
     UserNotFoundException,
     UserAlreadyExistsException,
 )

@@ -2,8 +2,8 @@
 
 from typing import Literal, Union
 from sqlalchemy.orm import Session
-from backend.app.api.v1.auth.models.user import User, OrgMember, Organization, Admin
-from backend.app.api.v1.auth.crud import (
+from app.api.v1.auth.models.user import User, OrgMember, Organization, Admin
+from app.api.v1.auth.crud import (
     create_user,
     get_user_by_email,
     get_org_member_by_email,
@@ -14,24 +14,24 @@ from backend.app.api.v1.auth.crud import (
     create_org_member_directly,
     add_existing_user_to_org,
 )
-from backend.lib.utils.user import (
+from lib.utils.user import (
     create_access_token,
     verify_password,
     is_strong_password,
     create_refresh_token,
 )
-from backend.lib.utils.clienttype import ClientType, validate_client_type
-from backend.lib.errorlib.auth import (
+from lib.utils.clienttype import ClientType, validate_client_type
+from lib.errorlib.auth import (
     WeakPasswordException,
     PasswordException,
     UserAlreadyExistsException,
     UserNotFoundException,
 )
-from backend.app.api.v1.auth.schemas.user.user import UserOut
-from backend.app.api.v1.auth.schemas.auth import AuthenticatedUserOut
-from backend.app.api.v1.auth.schemas.org import OrgMemberOut, OrganizationOut
-from backend.app.api.v1.auth.schemas.admin import AdminOut
-from backend.lib.utils.enums import UserType, OrgRole
+from app.api.v1.auth.schemas.user.user import UserOut
+from app.api.v1.auth.schemas.auth import AuthenticatedUserOut
+from app.api.v1.auth.schemas.org import OrgMemberOut, OrganizationOut
+from app.api.v1.auth.schemas.admin import AdminOut
+from lib.utils.enums import UserType, OrgRole
 
 
 MODEL_TO_SCHEMA = {

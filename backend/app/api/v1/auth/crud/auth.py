@@ -2,8 +2,8 @@
 
 from typing import Union
 from sqlalchemy.orm import Session
-from backend.lib.errorlib.auth import UserNotFoundException
-from backend.app.api.v1.auth.models.user import User, OrgMember, Organization, Admin
+from lib.errorlib.auth import UserNotFoundException
+from app.api.v1.auth.models.user import User, OrgMember, Organization, Admin
 
 
 def get_user_by_id(

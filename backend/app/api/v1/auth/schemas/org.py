@@ -3,8 +3,8 @@
 from typing import Literal, Optional
 from datetime import datetime
 from pydantic import BaseModel, EmailStr, Field
-from backend.lib.utils.enums import OrgRole, UserType
-from backend.app.api.v1.auth.schemas.user.user import UserOut
+from lib.utils.enums import OrgRole, UserType
+from app.api.v1.auth.schemas.user.user import UserOut
 
 
 class OrganizationCreate(BaseModel):

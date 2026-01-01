@@ -4,9 +4,9 @@ from __future__ import annotations
 import uuid as uuid_lib
 from sqlalchemy import Column, String, Enum, ForeignKey, UUID, Boolean, DateTime, func
 from sqlalchemy.orm import relationship
-from backend.app.api.core.base import Base
-from backend.lib.utils.enums import UserType, SubscriptionTier, Currency, OrgRole
-from backend.app.api.v1.dashboards.models.individual_users.user_dashboard import (
+from app.api.core.base import Base
+from lib.utils.enums import UserType, SubscriptionTier, Currency, OrgRole
+from app.api.v1.dashboards.models.individual_users.user_dashboard import (
     UserDashboard,
 )
 

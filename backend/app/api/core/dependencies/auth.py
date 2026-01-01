@@ -1,10 +1,10 @@
-from backend.app.api.v1.auth.crud import get_user_by_id, get_user_by_id_and_type
-from backend.lib.utils.user import get_current_user
-from backend.lib.errorlib.auth import (
+from app.api.v1.auth.crud import get_user_by_id, get_user_by_id_and_type
+from lib.utils.user import get_current_user
+from lib.errorlib.auth import (
     UserNotAuthorizedException,
     TokenException,
 )
-from backend.app.api.v1.auth.models.user import User
+from app.api.v1.auth.models.user import User
 from sqlalchemy.orm import Session
 
 

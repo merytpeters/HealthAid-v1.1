@@ -1,9 +1,9 @@
 """Admin Crud operations for the application."""
 
 from sqlalchemy.orm import Session
-from backend.app.api.v1.auth.models.user import Admin
-from backend.lib.utils.user import hash_password
-from backend.lib.errorlib.auth import (
+from app.api.v1.auth.models.user import Admin
+from lib.utils.user import hash_password
+from lib.errorlib.auth import (
     UserNotFoundException,
     UserAlreadyExistsException,
 )
