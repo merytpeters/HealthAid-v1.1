@@ -7,6 +7,7 @@ from lib.errorlib.auth import (
     UserNotFoundException,
     UserAlreadyExistsException,
 )
+
 # from app.api.v1.dashboards.models.individual_users.user_dashboard import UserDashboard
 
 
