@@ -12,14 +12,16 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-from backend.app.models.base import Base
-from backend.app.models.user import (
+from backend.app.api.core.base import Base
+from backend.app.api.v1.auth.models.user import (
     User,
     Organization,
     OrgMember,
     Admin,
-)  # Import your models here
-from backend.app.models.individual_users.user_dashboard import UserDashboard
+)
+from backend.app.api.v1.dashboards.models.individual_users.user_dashboard import (
+    UserDashboard,
+)
 from dotenv import load_dotenv
 
 load_dotenv()
