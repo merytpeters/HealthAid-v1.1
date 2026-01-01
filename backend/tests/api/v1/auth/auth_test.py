@@ -2,7 +2,7 @@
 
 import uuid
 import pytest
-from backend.tests.api.app_test import client
+from tests.api.app_test import client
 
 
 @pytest.mark.parametrize(

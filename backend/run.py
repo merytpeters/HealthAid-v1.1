@@ -1,6 +1,6 @@
 import os
 import uvicorn
-from backend.app.core.config import settings
+from app.api.core.config import settings
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", settings.PORT))  # fallback to settings.PORT if PORT is not set

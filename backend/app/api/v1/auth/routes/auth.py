@@ -8,33 +8,33 @@ from datetime import datetime
 from jose import jwt, JWTError
 from fastapi import APIRouter, HTTPException, status, Request, Response, Depends
 from sqlalchemy.orm import Session
-from backend.app.api.v1.auth.schemas.auth import (
+from app.api.v1.auth.schemas.auth import (
     TokenResponse,
     TokenRefresh,
     LogoutResponse,
     AuthenticatedUserOut,
 )
-from backend.lib.utils.user import (
+from lib.utils.user import (
     token_refresh,
     blacklist_token,
     verify_access_token,
     delete_auth_cookies,
 )
-from backend.lib.utils.clienttype import ClientType
-from backend.app.api.v1.auth.schemas.user.user import UserLogin
-from backend.lib.errorlib.auth import (
+from lib.utils.clienttype import ClientType
+from app.api.v1.auth.schemas.user.user import UserLogin
+from lib.errorlib.auth import (
     UserNotFoundException,
     PasswordException,
     TokenException,
 )
-from backend.app.api.v1.auth.services.auth_service import (
+from app.api.v1.auth.services.auth_service import (
     login_user_service_with_response as login_user_service,
 )
-from backend.app.api.db.session import get_db
-from backend.app.api.v1.auth.services.auth_service import (
+from app.api.db.session import get_db
+from app.api.v1.auth.services.auth_service import (
     register_user_service_with_response as register_user_service,
 )
-from backend.app.api.v1.auth.schemas import RegisterSchema
+from app.api.v1.auth.schemas import RegisterSchema
 
 
 SECRET_KEY = os.getenv("SECRET_KEY", "default_secret_key")

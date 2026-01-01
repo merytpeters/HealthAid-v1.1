@@ -2,13 +2,13 @@
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from backend.app.api.v1.auth.schemas.auth import AuthenticatedUserOut
-from backend.lib.errorlib.auth import UserNotAuthorizedException
-from backend.app.api.core.dependencies.auth import (
+from app.api.v1.auth.schemas.auth import AuthenticatedUserOut
+from lib.errorlib.auth import UserNotAuthorizedException
+from app.api.core.dependencies.auth import (
     get_current_user_from_db as profile_service,
 )
-from backend.app.api.core.dependencies.security import user_oauth2_scheme
-from backend.app.api.db.session import get_db
+from app.api.core.dependencies.security import user_oauth2_scheme
+from app.api.db.session import get_db
 
 
 router = APIRouter(prefix="/user", tags=["User"])

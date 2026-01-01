@@ -3,7 +3,7 @@
 from __future__ import annotations
 from typing import Literal, Optional
 from pydantic import BaseModel, EmailStr, Field
-from backend.lib.utils.enums import UserType, SubscriptionTier, Currency
+from lib.utils.enums import UserType, SubscriptionTier, Currency
 
 
 class UserCreate(BaseModel):

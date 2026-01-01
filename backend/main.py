@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.api import router as api_router
+from app.api import router as api_router
 
 app = FastAPI()
 # CORS configuration

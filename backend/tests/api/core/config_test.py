@@ -1,7 +1,7 @@
 """Test For Config Settings"""
 
 import pytest
-from backend.app.api.core.config import settings
+from app.api.core.config import settings
 
 
 @pytest.fixture(scope="module")

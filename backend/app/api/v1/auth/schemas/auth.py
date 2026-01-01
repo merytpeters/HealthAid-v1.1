@@ -2,9 +2,9 @@
 
 from typing import Literal, Optional, Union
 from pydantic import BaseModel
-from backend.app.api.v1.auth.schemas.user.user import UserOut
-from backend.app.api.v1.auth.schemas.org import OrgMemberOut, OrganizationOut
-from backend.app.api.v1.auth.schemas.admin import AdminOut
+from app.api.v1.auth.schemas.user.user import UserOut
+from app.api.v1.auth.schemas.org import OrgMemberOut, OrganizationOut
+from app.api.v1.auth.schemas.admin import AdminOut
 
 
 class AuthenticatedUserOut(BaseModel):
