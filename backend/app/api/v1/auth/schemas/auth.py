@@ -1,10 +1,11 @@
 """Authentication schemas"""
 
 from typing import Literal, Optional, Union
-from pydantic import BaseModel
-from app.api.v1.auth.schemas.user.user import UserOut
-from app.api.v1.auth.schemas.org import OrgMemberOut, OrganizationOut
+
 from app.api.v1.auth.schemas.admin import AdminOut
+from app.api.v1.auth.schemas.org import OrganizationOut, OrgMemberOut
+from app.api.v1.auth.schemas.user.user import UserOut
+from pydantic import BaseModel
 
 
 class AuthenticatedUserOut(BaseModel):

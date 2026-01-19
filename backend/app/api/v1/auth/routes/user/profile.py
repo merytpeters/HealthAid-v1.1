@@ -1,15 +1,12 @@
 """User profile API"""
 
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-from app.api.v1.auth.schemas.auth import AuthenticatedUserOut
-from lib.errorlib.auth import UserNotAuthorizedException
-from app.api.core.dependencies.auth import (
-    get_current_user_from_db as profile_service,
-)
+from app.api.core.dependencies.auth import get_current_user_from_db as profile_service
 from app.api.core.dependencies.security import user_oauth2_scheme
 from app.api.db.session import get_db
-
+from app.api.v1.auth.schemas.auth import AuthenticatedUserOut
+from fastapi import APIRouter, Depends, HTTPException, status
+from lib.errorlib.auth import UserNotAuthorizedException
+from sqlalchemy.orm import Session
 
 router = APIRouter(prefix="/user", tags=["User"])
 

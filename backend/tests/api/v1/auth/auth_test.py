@@ -1,6 +1,7 @@
 """Auth Tests"""
 
 import uuid
+
 import pytest
 from tests.api.app_test import client
 
@@ -206,6 +207,8 @@ def test_register_org_member_existing_user():
     assert user_response.status_code == 201
     user_data = user_response.json()
 
+    assert "user" in user_data
+    assert user_data["user"]["email"] == user_payload["email"]
     # Create an organization
     org_unique = uuid.uuid4().hex
     org_payload = {

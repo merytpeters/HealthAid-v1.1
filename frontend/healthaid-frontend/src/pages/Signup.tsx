@@ -1,4 +1,4 @@
-import { useUser } from "../context/UserContext";
+import { useUser } from "../context/useUserHook";
 import { UserType } from "../context/userRoles";
 import {
   CommonUserSignup,

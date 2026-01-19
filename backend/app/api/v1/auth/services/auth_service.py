@@ -1,38 +1,38 @@
 """User Service: Handles business logic"""
 
 from typing import Literal, Union
-from sqlalchemy.orm import Session
-from app.api.v1.auth.models.user import User, OrgMember, Organization, Admin
+
 from app.api.v1.auth.crud import (
+    add_existing_user_to_org,
+    create_admin,
+    create_org_member_directly,
+    create_organization_with_email,
     create_user,
-    get_user_by_email,
+    get_admin_by_email,
     get_org_member_by_email,
     get_organization_by_email,
-    create_organization_with_email,
-    create_admin,
-    get_admin_by_email,
-    create_org_member_directly,
-    add_existing_user_to_org,
+    get_user_by_email,
 )
-from lib.utils.user import (
-    create_access_token,
-    verify_password,
-    is_strong_password,
-    create_refresh_token,
-)
-from lib.utils.clienttype import ClientType, validate_client_type
+from app.api.v1.auth.models.user import Admin, Organization, OrgMember, User
+from app.api.v1.auth.schemas.admin import AdminOut
+from app.api.v1.auth.schemas.auth import AuthenticatedUserOut
+from app.api.v1.auth.schemas.org import OrganizationOut, OrgMemberOut
+from app.api.v1.auth.schemas.user.user import UserOut
 from lib.errorlib.auth import (
-    WeakPasswordException,
     PasswordException,
     UserAlreadyExistsException,
     UserNotFoundException,
+    WeakPasswordException,
 )
-from app.api.v1.auth.schemas.user.user import UserOut
-from app.api.v1.auth.schemas.auth import AuthenticatedUserOut
-from app.api.v1.auth.schemas.org import OrgMemberOut, OrganizationOut
-from app.api.v1.auth.schemas.admin import AdminOut
-from lib.utils.enums import UserType, OrgRole
-
+from lib.utils.clienttype import ClientType, validate_client_type
+from lib.utils.enums import OrgRole, UserType
+from lib.utils.user import (
+    create_access_token,
+    create_refresh_token,
+    is_strong_password,
+    verify_password,
+)
+from sqlalchemy.orm import Session
 
 MODEL_TO_SCHEMA = {
     "User": UserOut,

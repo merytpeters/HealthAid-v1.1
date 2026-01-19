@@ -1,14 +1,11 @@
 """Staff CRUD operations."""
 
-from sqlalchemy.orm import Session, joinedload
-from app.api.v1.auth.models.user import User, OrgMember
-from lib.utils.user import hash_password
-from lib.errorlib.auth import (
-    UserNotFoundException,
-    UserAlreadyExistsException,
-)
 from app.api.v1.auth.crud.users.user import create_user
+from app.api.v1.auth.models.user import OrgMember, User
+from lib.errorlib.auth import UserAlreadyExistsException, UserNotFoundException
 from lib.utils.enums import OrgRole
+from lib.utils.user import hash_password
+from sqlalchemy.orm import Session, joinedload
 
 
 def create_org_member_directly(db: Session, **kwargs) -> OrgMember:

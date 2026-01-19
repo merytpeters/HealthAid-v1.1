@@ -39,7 +39,7 @@ THIS DOC IS TO SHOW REASONS FOR DECISIONS TAKEN FOR ORGANIZATION ARCHITECTURE
 7. ORG ROLE STRUCTURE
    - STAFF: Basic organization member
    - DOCTOR: Medical professional role
-   - NURSE: Nursing professional role  
+   - NURSE: Nursing professional role
    - ORG_ADMIN: Administrator within the organization
    - Default: STAFF (when creating new org members)
 
@@ -54,7 +54,7 @@ THIS DOC IS TO SHOW REASONS FOR DECISIONS TAKEN FOR ORGANIZATION ARCHITECTURE
 
 9. LOGIN CONTEXT SEPARATION
    - user: For regular User accounts
-   - organization: For Organization accounts  
+   - organization: For Organization accounts
    - admin: For App Admin accounts
    - org_member: For OrgMember accounts
    - Reason: Ensures users login with correct context and permissions

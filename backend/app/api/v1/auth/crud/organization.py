@@ -1,12 +1,9 @@
 """Organization CRUD operations."""
 
-from sqlalchemy.orm import Session, joinedload
-from app.api.v1.auth.models.user import OrgMember, Organization
+from app.api.v1.auth.models.user import Organization, OrgMember
+from lib.errorlib.auth import UserAlreadyExistsException, UserNotFoundException
 from lib.utils.user import hash_password
-from lib.errorlib.auth import (
-    UserNotFoundException,
-    UserAlreadyExistsException,
-)
+from sqlalchemy.orm import Session, joinedload
 
 
 def create_organization_with_email(db: Session, **kwargs) -> Organization:

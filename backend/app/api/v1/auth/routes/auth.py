@@ -3,39 +3,35 @@ Authorization and authentication APIs
 Token, Logout Route"""
 
 import os
-from typing import cast
 from datetime import datetime
-from jose import jwt, JWTError
-from fastapi import APIRouter, HTTPException, status, Request, Response, Depends
-from sqlalchemy.orm import Session
+from typing import cast
+
+from app.api.db.session import get_db
+from app.api.v1.auth.schemas import RegisterSchema
 from app.api.v1.auth.schemas.auth import (
-    TokenResponse,
-    TokenRefresh,
-    LogoutResponse,
     AuthenticatedUserOut,
+    LogoutResponse,
+    TokenRefresh,
+    TokenResponse,
 )
-from lib.utils.user import (
-    token_refresh,
-    blacklist_token,
-    verify_access_token,
-    delete_auth_cookies,
-)
-from lib.utils.clienttype import ClientType
 from app.api.v1.auth.schemas.user.user import UserLogin
-from lib.errorlib.auth import (
-    UserNotFoundException,
-    PasswordException,
-    TokenException,
-)
 from app.api.v1.auth.services.auth_service import (
     login_user_service_with_response as login_user_service,
 )
-from app.api.db.session import get_db
 from app.api.v1.auth.services.auth_service import (
     register_user_service_with_response as register_user_service,
 )
-from app.api.v1.auth.schemas import RegisterSchema
-
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
+from jose import JWTError, jwt
+from lib.errorlib.auth import PasswordException, TokenException, UserNotFoundException
+from lib.utils.clienttype import ClientType
+from lib.utils.user import (
+    blacklist_token,
+    delete_auth_cookies,
+    token_refresh,
+    verify_access_token,
+)
+from sqlalchemy.orm import Session
 
 SECRET_KEY = os.getenv("SECRET_KEY", "default_secret_key")
 ALGORITHM = "HS256"

@@ -1,8 +1,9 @@
 """Schema for admin management"""
 
 from typing import Literal
-from pydantic import BaseModel, Field, EmailStr
+
 from lib.utils.enums import UserType
+from pydantic import BaseModel, EmailStr, Field
 
 
 class AdminCreate(BaseModel):

@@ -2,9 +2,10 @@
 health metrics"""
 
 import uuid as uuid_lib
-from sqlalchemy import Column, ForeignKey, JSON, UUID
-from sqlalchemy.orm import relationship
+
 from app.api.core.base import Base
+from sqlalchemy import JSON, UUID, Column, ForeignKey
+from sqlalchemy.orm import relationship
 
 
 class UserDashboard(Base):

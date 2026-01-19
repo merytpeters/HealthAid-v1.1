@@ -1,0 +1,76 @@
+exclude: ^frontend/
+repos:
+  # -------------------------
+  # Black for code formatting
+  # -------------------------
+  - repo: https://github.com/psf/black
+    rev: 26.1.0
+    hooks:
+      - id: black
+        language_version: python3.12
+        files: ^backend/.*\.py$
+
+  # -------------------------
+  # Ruff: auto-fix lint issues
+  # -------------------------
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.14.13
+    hooks:
+      - id: ruff-check
+        name: Ruff check + fix
+        entry: ruff
+        language: python
+        types: [python]
+        args: ["check", ".", "--fix"]
+        files: ^backend/.*\.py$
+
+
+      - id: ruff
+        name: Ruff format
+        entry: ruff
+        language: python
+        types: [python]
+        args: ["format", "."]  # full formatting like `ruff format .`
+        files: ^backend/.*\.py$
+
+  # -------------------------
+  # isort: sort imports
+  # -------------------------
+  - repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1
+    hooks:
+      - id: isort
+        args: ["--profile", "black"]
+        files: ^backend/.*\.py$
+
+  # -------------------------
+  # Generic pre-commit hooks
+  # -------------------------
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-yaml
+        files: ^backend/
+      - id: end-of-file-fixer
+        files: ^backend/
+      - id: trailing-whitespace
+        files: ^backend/
+
+
+  # -------------------------
+  # Pytest hook (local)
+  # -------------------------
+  - repo: local
+    hooks:
+      - id: pytest
+        name: Run pytest (FastAPI)
+        entry: pytest
+        language: system
+        pass_filenames: false
+        files: ^backend/
+        args:
+          [
+            "--maxfail=1",
+            "--disable-warnings",
+            "backend/tests"
+          ]

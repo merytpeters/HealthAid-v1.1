@@ -1,20 +1,23 @@
 """User and Organization models for the application."""
 
 from __future__ import annotations
+
 import uuid as uuid_lib
-from sqlalchemy import Column, String, Enum, ForeignKey, UUID, Boolean, DateTime, func
-from sqlalchemy.orm import relationship
+
 from app.api.core.base import Base
-from lib.utils.enums import UserType, SubscriptionTier, Currency, OrgRole
-from app.api.v1.dashboards.models.individual_users.user_dashboard import (
-    UserDashboard,
-)
+from lib.utils.enums import Currency, OrgRole, SubscriptionTier, UserType
+from sqlalchemy import UUID, Boolean, Column, DateTime, Enum, ForeignKey, String, func
+from sqlalchemy.orm import relationship
 
 
 class User(Base):
     """User model representing a user in the system."""
 
     __tablename__ = "users"
+
+    from app.api.v1.dashboards.models.individual_users.user_dashboard import (
+        UserDashboard,
+    )
 
     id = Column(
         UUID(as_uuid=False),
@@ -52,7 +55,7 @@ class User(Base):
 
     def __repr__(self):
         """String representation of the User model."""
-        return f"<User(id={self.id}, username={self.username}, " f"email={self.email})>"
+        return f"<User(id={self.id}, username={self.username}, email={self.email})>"
 
 
 class Organization(Base):

@@ -1,4 +1,4 @@
-import { useUser } from "../context/UserContext";
+import { useUser } from "../context/useUserHook";
 import { UserType, OrgRole } from "../context/userRoles";
 import StaffDashboard from "../components/userDashboards/staffdashboard";
 import AdminDashoard from "../components/userDashboards/admindashboard";
