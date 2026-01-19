@@ -1,3 +1,4 @@
+exclude: ^frontend/
 repos:
   # -------------------------
   # Black for code formatting
@@ -7,7 +8,7 @@ repos:
     hooks:
       - id: black
         language_version: python3.12
-        files: ^backend/
+        files: ^backend/.*\.py$
 
   # -------------------------
   # Ruff: auto-fix lint issues
@@ -21,7 +22,7 @@ repos:
         language: python
         types: [python]
         args: ["check", ".", "--fix"]
-        files: ^backend/
+        files: ^backend/.*\.py$
 
 
       - id: ruff
@@ -30,7 +31,7 @@ repos:
         language: python
         types: [python]
         args: ["format", "."]  # full formatting like `ruff format .`
-        files: ^backend/
+        files: ^backend/.*\.py$
 
   # -------------------------
   # isort: sort imports
@@ -40,7 +41,7 @@ repos:
     hooks:
       - id: isort
         args: ["--profile", "black"]
-        files: ^backend/
+        files: ^backend/.*\.py$
 
   # -------------------------
   # Generic pre-commit hooks
@@ -66,6 +67,7 @@ repos:
         entry: pytest
         language: system
         pass_filenames: false
+        files: ^backend/
         args:
           [
             "--maxfail=1",
