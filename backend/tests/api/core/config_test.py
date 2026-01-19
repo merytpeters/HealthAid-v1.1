@@ -1,6 +1,7 @@
 """Test For Config Settings"""
 
 import pytest
+
 from app.api.core.config import settings
 
 

@@ -2,7 +2,7 @@ import CommonUserSidebar from "./userSidebars/commonuserSidebar";
 import StaffSidebar from "./userSidebars/staffsidebar";
 import AdminSidebar from "./userSidebars/adminsidebar";
 import OrgSidebar from "./userSidebars/orgsidebar";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../context/useUserHook";
 import { UserType, OrgRole } from "../context/userRoles";
 
 const Sidebar = ({ onClose }: { onClose: () => void }) => {

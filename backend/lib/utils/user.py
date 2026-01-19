@@ -1,13 +1,13 @@
 """Utility functions for handling JWT tokens."""
 
 import os
-from datetime import datetime, timedelta
 import uuid
+from datetime import datetime, timedelta
+
 import bcrypt
 import redis
-from jose import JWTError, jwt
 from fastapi import Response
-
+from jose import JWTError, jwt
 
 SECRET_KEY = os.getenv("SECRET_KEY", "default_secret_key")
 ALGORITHM = "HS256"

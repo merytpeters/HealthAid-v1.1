@@ -1,10 +1,11 @@
 """Schema for Organisation Management"""
 
-from typing import Literal, Optional
 from datetime import datetime
-from pydantic import BaseModel, EmailStr, Field
-from lib.utils.enums import OrgRole, UserType
+from typing import Literal, Optional
+
 from app.api.v1.auth.schemas.user.user import UserOut
+from lib.utils.enums import OrgRole, UserType
+from pydantic import BaseModel, EmailStr, Field
 
 
 class OrganizationCreate(BaseModel):

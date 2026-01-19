@@ -2,7 +2,6 @@
 
 from typing import Literal
 
-
 ClientType = Literal["web", "admin-web", "partner-web", "mobile"]
 
 ALLOWED_CLIENT_TYPES: set[str] = {"web", "admin-web", "partner-web", "mobile"}

@@ -1,12 +1,9 @@
 """User CRUD Operations."""
 
-from sqlalchemy.orm import Session
-from lib.utils.user import hash_password
-from lib.errorlib.auth import (
-    UserNotFoundException,
-    UserAlreadyExistsException,
-)
 from app.api.v1.auth.models.user import User
+from lib.errorlib.auth import UserAlreadyExistsException, UserNotFoundException
+from lib.utils.user import hash_password
+from sqlalchemy.orm import Session
 
 
 def create_user(db: Session, **kwargs) -> User:

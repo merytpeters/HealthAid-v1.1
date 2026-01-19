@@ -1,9 +1,11 @@
 """Schemas for user management."""
 
 from __future__ import annotations
+
 from typing import Literal, Optional
+
+from lib.utils.enums import Currency, SubscriptionTier, UserType
 from pydantic import BaseModel, EmailStr, Field
-from lib.utils.enums import UserType, SubscriptionTier, Currency
 
 
 class UserCreate(BaseModel):

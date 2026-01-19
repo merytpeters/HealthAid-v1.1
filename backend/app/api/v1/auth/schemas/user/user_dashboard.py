@@ -2,8 +2,9 @@
 
 from datetime import date
 from enum import Enum
+from typing import List, Optional
+
 from pydantic import BaseModel, EmailStr
-from typing import Optional, List
 
 
 class EmergencyContact(BaseModel):

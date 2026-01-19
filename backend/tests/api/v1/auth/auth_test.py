@@ -1,6 +1,7 @@
 """Auth Tests"""
 
 import uuid
+
 import pytest
 from tests.api.app_test import client
 
@@ -181,9 +182,9 @@ def test_register_org_member_new_user():
         "organization_id": org_id,
     }
     member_response = client.post("/auth/register", json=member_payload)
-    assert (
-        member_response.status_code == 201
-    ), f"Registration failed: {member_response.text}"
+    assert member_response.status_code == 201, (
+        f"Registration failed: {member_response.text}"
+    )
     member_data = member_response.json()
 
     assert "user" in member_data
@@ -206,6 +207,8 @@ def test_register_org_member_existing_user():
     assert user_response.status_code == 201
     user_data = user_response.json()
 
+    assert "user" in user_data
+    assert user_data["user"]["email"] == user_payload["email"]
     # Create an organization
     org_unique = uuid.uuid4().hex
     org_payload = {
@@ -229,9 +232,9 @@ def test_register_org_member_existing_user():
         "organization_id": org_id,
     }
     member_response = client.post("/auth/register", json=member_payload)
-    assert (
-        member_response.status_code == 201
-    ), f"Registration failed: {member_response.text}"
+    assert member_response.status_code == 201, (
+        f"Registration failed: {member_response.text}"
+    )
     member_data = member_response.json()
 
     assert "user" in member_data
@@ -261,9 +264,9 @@ def test_org_member_login():
         "organization_id": org_id,
     }
     member_response = client.post("/auth/register", json=member_payload)
-    assert (
-        member_response.status_code == 201
-    ), f"Registration failed: {member_response.text}"
+    assert member_response.status_code == 201, (
+        f"Registration failed: {member_response.text}"
+    )
 
     # Test login
     login_payload = {
@@ -318,9 +321,9 @@ def test_org_member_multiple_organizations():
         # Remove role or use default - let the schema default handle it
     }
     member1_response = client.post("/auth/register", json=member1_payload)
-    assert (
-        member1_response.status_code == 201
-    ), f"Registration failed: {member1_response.text}"
+    assert member1_response.status_code == 201, (
+        f"Registration failed: {member1_response.text}"
+    )
 
     # Add same email to second organization (this should now work with multi-org support)
     member2_payload = {
@@ -333,9 +336,9 @@ def test_org_member_multiple_organizations():
         "role": "doctor",  # Use lowercase to match enum
     }
     member2_response = client.post("/auth/register", json=member2_payload)
-    assert (
-        member2_response.status_code == 201
-    ), f"Multi-org registration failed: {member2_response.text}"
+    assert member2_response.status_code == 201, (
+        f"Multi-org registration failed: {member2_response.text}"
+    )
 
     # Verify both memberships exist with same email but different organizations
     member1_data = member1_response.json()
@@ -419,9 +422,9 @@ def test_org_member_same_user_multiple_organizations():
         # Remove role to use default
     }
     member1_response = client.post("/auth/register", json=member1_payload)
-    assert (
-        member1_response.status_code == 201
-    ), f"First org membership failed: {member1_response.text}"
+    assert member1_response.status_code == 201, (
+        f"First org membership failed: {member1_response.text}"
+    )
 
     # Add same user to second organization
     member2_payload = {
@@ -435,9 +438,9 @@ def test_org_member_same_user_multiple_organizations():
         "role": "org_admin",  # Use lowercase to match enum
     }
     member2_response = client.post("/auth/register", json=member2_payload)
-    assert (
-        member2_response.status_code == 201
-    ), f"Second org membership failed: {member2_response.text}"
+    assert member2_response.status_code == 201, (
+        f"Second org membership failed: {member2_response.text}"
+    )
 
     # Verify both memberships are linked to same user
     member1_data = member1_response.json()
@@ -488,9 +491,9 @@ def test_organization_is_org_admin():
 
     # Since the organization should be an admin by default, check if it's properly identified as organization
     # and that it's not a regular app admin (which would have ADMIN user_type)
-    assert (
-        user_type == "ORGANIZATION"
-    ), f"Expected ORGANIZATION user_type but got {user_type}"
+    assert user_type == "ORGANIZATION", (
+        f"Expected ORGANIZATION user_type but got {user_type}"
+    )
     assert user_type != "ADMIN", "Organization should not have ADMIN user_type"
 
     # If role is returned, it should be org_admin. If not returned, that might be expected behavior
@@ -526,9 +529,9 @@ def test_app_admin_vs_org_admin():
     ):
         pytest.skip("Admin already exists - testing with existing admin")
 
-    assert (
-        admin_response.status_code == 201
-    ), f"Admin registration failed: {admin_response.text}"
+    assert admin_response.status_code == 201, (
+        f"Admin registration failed: {admin_response.text}"
+    )
     admin_data = admin_response.json()
 
     # Verify app admin
@@ -627,9 +630,9 @@ def test_admin_login_context_validation():
         admin_payload["email"] = test_admin_email
         admin_payload["password"] = test_admin_password
     else:
-        assert (
-            admin_response.status_code == 201
-        ), f"Admin registration failed: {admin_response.text}"
+        assert admin_response.status_code == 201, (
+            f"Admin registration failed: {admin_response.text}"
+        )
 
     # Try to login as user (wrong context) - this should fail
     wrong_login_payload = {
@@ -638,9 +641,9 @@ def test_admin_login_context_validation():
         "login_context": "user",  # Wrong context for admin
     }
     wrong_login_response = client.post("/auth/login", json=wrong_login_payload)
-    assert (
-        wrong_login_response.status_code == 401
-    ), f"Expected 401 for wrong context but got {wrong_login_response.status_code}: {wrong_login_response.text}"
+    assert wrong_login_response.status_code == 401, (
+        f"Expected 401 for wrong context but got {wrong_login_response.status_code}: {wrong_login_response.text}"
+    )
 
     # Correct login as admin - this should succeed
     correct_login_payload = {
@@ -649,17 +652,17 @@ def test_admin_login_context_validation():
         "login_context": "admin",  # Correct context
     }
     correct_login_response = client.post("/auth/login", json=correct_login_payload)
-    assert (
-        correct_login_response.status_code == 200
-    ), f"Admin login failed: {correct_login_response.text}"
+    assert correct_login_response.status_code == 200, (
+        f"Admin login failed: {correct_login_response.text}"
+    )
     correct_login_data = correct_login_response.json()
 
     # Verify it's actually an admin login
     role = correct_login_data.get("role")
     user_type = correct_login_data.get("user", {}).get("user_type", "").upper()
-    assert (
-        role == "admin" or user_type == "ADMIN"
-    ), f"Expected admin role but got role={role}, user_type={user_type}"
+    assert role == "admin" or user_type == "ADMIN", (
+        f"Expected admin role but got role={role}, user_type={user_type}"
+    )
 
 
 def test_duplicate_email_restrictions():

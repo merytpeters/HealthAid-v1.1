@@ -1,0 +1,47 @@
+# .github/workflows/frontend-ci.yml
+name: Frontend CI
+
+on:
+  push:
+    paths:
+      - 'frontend/healthaid-frontend/**'
+  pull_request:
+    paths:
+      - 'frontend/healthaid-frontend/**'
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: frontend/healthaid-frontend
+
+    steps:
+      # Checkout the repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20  # Adjust if you use a different Node version
+          cache: "npm"
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Run lint
+      - name: Run ESLint
+        run: npm run lint
+
+      # Optional: Run tests if you have a test script
+      - name: Run tests
+        run: npm test
+        continue-on-error: false
+
+      # Optional: Build project if needed
+      - name: Build
+        run: npm run build

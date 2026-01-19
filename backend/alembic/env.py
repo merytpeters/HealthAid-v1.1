@@ -1,28 +1,16 @@
-import sys
 import os
+import sys
+from logging.config import fileConfig
 from pathlib import Path
+
+from alembic import context
+from app.api.core.base import Base
+from dotenv import load_dotenv
+from sqlalchemy import engine_from_config, pool
 
 # the project root to Python path
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
-
-from logging.config import fileConfig
-
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-
-from alembic import context
-from app.api.core.base import Base
-from app.api.v1.auth.models.user import (
-    User,
-    Organization,
-    OrgMember,
-    Admin,
-)
-from app.api.v1.dashboards.models.individual_users.user_dashboard import (
-    UserDashboard,
-)
-from dotenv import load_dotenv
 
 load_dotenv()
 # Import your models to ensure they are registered with SQLAlchemy
