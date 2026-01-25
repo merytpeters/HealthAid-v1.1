@@ -145,3 +145,105 @@
 
  - add a `.env.example` file to the repo with non-sensitive defaults,
  - add a GitHub Actions CI workflow that runs `ruff check .`, `pre-commit run --all-files`, and `pytest` on PRs.
+# HealthAid — Backend
+
+This directory contains the FastAPI backend for HealthAid. It provides the API, database models, migrations, and helper scripts used during development and deployment.
+
+This README covers local setup, environment variables, running the app, and working with Alembic migrations.
+
+## Requirements
+
+- Python 3.12+
+- A working database (sqlite for quick local use or Postgres for development/production)
+- Recommended: a virtual environment (venv)
+
+## Quick setup (local)
+
+1. Create and activate a virtual environment
+
+```zsh
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+2. Install dependencies
+
+```zsh
+pip install -r requirements.txt
+```
+
+3. Provide environment variables
+
+Copy `backend/.env.example` to `backend/.env` or export variables in your shell. Minimum variables to set:
+
+- DATABASE_URL — e.g. `sqlite+aiosqlite:///./dev.db` or a Postgres URL
+- SECRET_KEY — a long random secret for signing
+
+Example (in `backend/.env`):
+
+```text
+DATABASE_URL=sqlite+aiosqlite:///./dev.db
+SECRET_KEY=your-secret-here
+```
+
+4. Run database migrations (Alembic)
+
+```zsh
+cd backend
+alembic upgrade head
+```
+
+If you don't have Alembic installed in your path, run it via the virtualenv's `alembic` script or with `python -m alembic`.
+
+## Running the app (development)
+
+Start the server with Uvicorn and auto-reload for development:
+
+```zsh
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+By default the app will be available at `http://localhost:8000`. API docs are at `/docs` (Swagger UI) and `/redoc`.
+
+## Running tests
+
+Tests are in the repository `tests/` folder. From the repo root (with venv active):
+
+```zsh
+pytest -q
+```
+
+Add tests for any new backend logic and run them locally before opening PRs (see `CONTRIBUTING.md`).
+
+## Alembic migrations
+
+- Create a new migration after model changes:
+
+```zsh
+cd backend
+alembic revision --autogenerate -m "describe change"
+alembic upgrade head
+```
+
+- Migration files are stored in `backend/alembic/versions/`.
+
+Coordinate migration changes with other developers to avoid merge conflicts.
+
+## Secrets and security
+
+- Keep `SECRET_KEY` and any API keys out of version control. Use `backend/.env` (gitignored) or a secrets manager.
+- If you add AI provider keys (for the AI-first-aid feature), treat them as highly sensitive.
+
+## Docker (optional)
+
+There is a top-level `docker-compose.yml` that can be used to run the full stack including the backend. Check `docker-compose.yml` for service names, ports, and volumes.
+
+## Useful developer scripts
+
+- `secret_gen.py` — generate secure secret values for `SECRET_KEY`.
+- `run.py` — convenience script for local runs (see file for behavior).
+
+## Notes
+
+- For configuration details, check `app/core/config.py` in the backend application for available settings and defaults.
+- If you plan to deploy publicly, follow security best practices (TLS, DB backups, logging, access controls) and review relevant health-data regulations.
