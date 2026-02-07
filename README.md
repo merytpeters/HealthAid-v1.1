@@ -230,7 +230,7 @@ Coding style: follow existing project conventions. Use `ruff`, `black`, or other
 
 ## License & contact
 
-This project is proprietary software. See the `LICENSE` file in the repository root for the full copyright and license notice.
+This project is proprietary software. See the [License](./LICENSE) file in the repository root for the full copyright and license notice.
 
 Summary: Copyright (c) 2026 merytpeters — All Rights Reserved. This repository is not open source and no rights to copy, modify, distribute, or use the software are granted except by a written license from the copyright holder.
 
