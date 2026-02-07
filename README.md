@@ -30,6 +30,7 @@ This repository contains a FastAPI backend (with Alembic migrations) and a Vite 
 HealthAid is a web application that provides organization and dashboard management for healthcare-related workflows. The backend is implemented with FastAPI and persistent storage managed via SQLAlchemy + Alembic migrations. The frontend is a modern React + TypeScript app bootstrapped with Vite.
 
 This repository collects both backend and frontend code to make local development and deployment simple.
+This project is an improvement of [Version 1](https://github.com/merytpeters/Healthaid).
 
 ## Features (planned / in development)
 
