@@ -213,7 +213,7 @@ Success criteria: backend starts, Alembic migrations apply, frontend connects to
 - Alembic errors: inspect migration files in `backend/alembic/versions/` and the DB. Rolling back may be necessary for partial upgrades.
 - Frontend CORS / API URL: verify the frontend is pointing to the correct backend host/port. Adjust dev proxy or base URL if required.
 
-## Contributing
+## Contributing (by Permission Only)
 
 1. Fork and create a feature branch.
 2. Add tests for new behavior. Keep commits focused.
