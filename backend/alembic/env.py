@@ -3,10 +3,11 @@ import sys
 from logging.config import fileConfig
 from pathlib import Path
 
-from alembic import context
-from app.api.core.base import Base
 from dotenv import load_dotenv
 from sqlalchemy import engine_from_config, pool
+
+from alembic import context
+from app.api.core.base import Base
 
 # the project root to Python path
 project_root = Path(__file__).parent.parent.parent

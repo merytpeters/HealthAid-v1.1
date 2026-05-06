@@ -4,10 +4,11 @@ from __future__ import annotations
 
 import uuid as uuid_lib
 
-from app.api.core.base import Base
-from lib.utils.enums import Currency, OrgRole, SubscriptionTier, UserType
 from sqlalchemy import UUID, Boolean, Column, DateTime, Enum, ForeignKey, String, func
 from sqlalchemy.orm import relationship
+
+from app.api.core.base import Base
+from lib.utils.enums import Currency, OrgRole, SubscriptionTier, UserType
 
 
 class User(Base):

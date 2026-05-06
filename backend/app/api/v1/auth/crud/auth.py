@@ -2,9 +2,10 @@
 
 from typing import Union
 
+from sqlalchemy.orm import Session
+
 from app.api.v1.auth.models.user import Admin, Organization, OrgMember, User
 from lib.errorlib.auth import UserNotFoundException
-from sqlalchemy.orm import Session
 
 
 def get_user_by_id(

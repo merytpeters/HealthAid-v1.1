@@ -2,6 +2,8 @@
 
 from typing import Literal, Union
 
+from sqlalchemy.orm import Session
+
 from app.api.v1.auth.crud import (
     add_existing_user_to_org,
     create_admin,
@@ -32,7 +34,6 @@ from lib.utils.user import (
     is_strong_password,
     verify_password,
 )
-from sqlalchemy.orm import Session
 
 MODEL_TO_SCHEMA = {
     "User": UserOut,

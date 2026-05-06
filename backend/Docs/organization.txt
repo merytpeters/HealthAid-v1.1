@@ -66,3 +66,13 @@ THIS DOC IS TO SHOW REASONS FOR DECISIONS TAKEN FOR ORGANIZATION ARCHITECTURE
     - UI/UX: Organization selector for multi-org members
     - Permissions: Role-based access per organization
     - Session Management: Track current organization context
+
+11. ORGANIZATION DASHBOARD LAYOUT MOOD
+     - Pandemic mode: Configurable Dashboard api
+     - Audit report
+     - Interoperability
+     - External data hooks from WHO Exception
+     - Microlocation tracking
+     - Dynamic/multiple accessibility UI
+     - Infrastructure as a policy service
+     - API as a sercice

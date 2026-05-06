@@ -3,9 +3,11 @@ health metrics"""
 
 import uuid as uuid_lib
 
-from app.api.core.base import Base
-from sqlalchemy import JSON, UUID, Column, ForeignKey
+from sqlalchemy import UUID, Column, ForeignKey
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import relationship
+
+from app.api.core.base import Base
 
 
 class UserDashboard(Base):
@@ -21,9 +23,9 @@ class UserDashboard(Base):
         autoincrement=False,
     )
     user_id = Column(UUID(as_uuid=False), ForeignKey("users.id"), unique=True)
-    personal_info = Column(JSON)
-    bio_data = Column(JSON)
-    health_metrics = Column(JSON)
+    personal_info = Column(JSONB)
+    bio_data = Column(JSONB)
+    health_metrics = Column(JSONB)
 
     user = relationship("User", back_populates="dashboard")
 

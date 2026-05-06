@@ -6,6 +6,10 @@ import os
 from datetime import datetime
 from typing import cast
 
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
+from jose import JWTError, jwt
+from sqlalchemy.orm import Session
+
 from app.api.db.session import get_db
 from app.api.v1.auth.schemas import RegisterSchema
 from app.api.v1.auth.schemas.auth import (
@@ -21,8 +25,6 @@ from app.api.v1.auth.services.auth_service import (
 from app.api.v1.auth.services.auth_service import (
     register_user_service_with_response as register_user_service,
 )
-from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
-from jose import JWTError, jwt
 from lib.errorlib.auth import PasswordException, TokenException, UserNotFoundException
 from lib.utils.clienttype import ClientType
 from lib.utils.user import (
@@ -31,7 +33,6 @@ from lib.utils.user import (
     token_refresh,
     verify_access_token,
 )
-from sqlalchemy.orm import Session
 
 SECRET_KEY = os.getenv("SECRET_KEY", "default_secret_key")
 ALGORITHM = "HS256"

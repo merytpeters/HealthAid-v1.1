@@ -1,9 +1,10 @@
 """Admin Crud operations for the application."""
 
+from sqlalchemy.orm import Session
+
 from app.api.v1.auth.models.user import Admin
 from lib.errorlib.auth import UserAlreadyExistsException, UserNotFoundException
 from lib.utils.user import hash_password
-from sqlalchemy.orm import Session
 
 
 def create_admin(db: Session, **kwargs) -> Admin:
